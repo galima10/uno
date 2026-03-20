@@ -1,0 +1,11 @@
+a {
+  display: block;
+}
+
+.pas-tour {
+  pointer-events: none;
+}
+
+.finish {
+  pointer-events: none;
+}
