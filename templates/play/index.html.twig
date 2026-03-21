@@ -4,249 +4,389 @@
 {% endblock %}
 
 {% block body %}
-	<style>
-		.wrapper {
-			width: 100vw;
-			height: 100vh;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			overflow: hidden;
-			position: relative;
-		}
-	</style>
 	<link rel="stylesheet" href="{{ asset('styles/play.css') }}">
-	<div class="wrapper {% if winner %}finish{% endif %}">
-		<h1>Play</h1>
-		<a href="{{ path('start_index')}}">Reset</a>
-		<div class="game">
-			<div class="card" id="c1">
-				<img src="{{ asset('images/img.png') }}" alt="">
-			</div>
-			<div class="card" id="c2">
-				<img src="{{ asset('images/img.png') }}" alt="">
-			</div>
-		</div>
-		{# <p>Sens :
-					{% if sens === 1 %}Normal{% else %}Inversé
-					{% endif %}
-				</p>
-				<p>
-					Accumulation :
-					{{ accumulation }}
-				</p>
-				<p>Deck :
-					{{ deck|length }}
-					cartes</p>
-				{% if turn.getPlayerType() === 'user' and cardPicked === false %}
-					<a href="{{ path('deck_index', {'playerId': turn.getId()}) }}">Piocher-
-						{% if cardPicked === true %}CardPicked true{% elseif cardPicked === false %}CardPicked false{% elseif cardPicked === null %}CardPicked null
-						{% endif %}
-					</a>
-				{% else %}
-					<p>Piocher -
-						{% if cardPicked === true %}CardPicked true{% elseif cardPicked === false %}CardPicked false{% elseif cardPicked === null %}CardPicked null
-						{% endif %}
-					</p>
-				{% endif %}
-				<p>Ordre des joueurs :</p>
-				<ul style="display: flex; gap: 40px">
-					{% for player in players %}
-						{% if turn.getId() === player.getId() %}
-							<a href="">
-								<li>
-									<p>{{ player.getName() }}
-										- Cartes :
-										{{ player.getCards()|length }}</p>
-								</li>
-							</a>
-						{% else %}
-							<li>
-								<p>{{ player.getName() }}
-									- Cartes :
-									{{ player.getCards()|length }}</p>
-							</li>
-						{% endif %}
-					{% endfor %}
-				</ul>
-				{% if enemyCardPlayed %}
-					<p>Carte ennemie jouée :
-						{{ enemyCardPlayed.getColor() }}
-						-
-						{{ enemyCardPlayed.getNumber() }}
-						{% if enemyCardPlayed.getNumber() === 12 %}- Carte + 2 !
-						{% endif %}
-						{% if enemyCardPlayed.getNumber() === 11 %}- Carte Changement de sens !
-						{% endif %}
-						{% if enemyCardPlayed.getNumber() === 10 %}- Carte Saute tour !
-						{% endif %}
-					</p>
-				{% endif %}
-				<p>Tour de :
-					{{ turn.getName() }}</p>
-				<p>Carte du dessus de la pile :
-					{{ topDiscardCard.getColor() }}
-					-
-					{{ topDiscardCard.getNumber() }}
-					{% if topDiscardCard.getNumber() === 12 %}- Carte + 2 !
-					{% endif %}
-					{% if topDiscardCard.getNumber() === 11 %}- Carte Changement de sens !
-					{% endif %}
-					{% if topDiscardCard.getNumber() === 10 %}- Carte Saute tour !
-					{% endif %}
-				</p>
-		
-				<p>Joueurs</p>
-				<ul style="display: flex; justify-content: space-between">
-					{% for player in players %}
-						<li>
-							<p>
-								{{ player.getId() }}
-								-
-								{{ player.getName() }}
-								-
-								{{ player.getPlayerType() }}
-								-
-								{{ player.getCards()|length }}
-								cartes
-							</p>
-							<ul>
-								{% for card in player.getCards() %}
-									{% if player.getPlayerType() === 'user' %}
-										<li class="{% if turn.getPlayerType() !== 'user' %}pas-tour{% endif %} ">
-											{% if accumulation > 0 %}
-												{% if topDiscardCard.getNumber() === 12 and topDiscardCard.getNumber() === card.getNumber() %}
-													<a href="{{ path('user_index', {'cardId': card.getId()}) }}">
-														<p>
-															ID :
-															{{ card.getId() }}
-															-
-															{{ card.getNumber() }}
-															-
-															{{ card.getColor() }}
-														</p>
-													</a>
-												{% else %}
-													<p>
-														ID :
-														{{ card.getId() }}
-														-
-														{{ card.getNumber() }}
-														-
-														{{ card.getColor() }}
-													</p>
-												{% endif %}
-											{% else %}
-												{% if topDiscardCard.getNumber() === card.getNumber() or topDiscardCard.getColor() === card.getColor() %}
-													<a href="{{ path('user_index', {'cardId': card.getId()}) }}">
-														<p>
-															ID :
-															{{ card.getId() }}
-															-
-															{{ card.getNumber() }}
-															-
-															{{ card.getColor() }}
-														</p>
-													</a>
-												{% else %}
-													<p>
-														ID :
-														{{ card.getId() }}
-														-
-														{{ card.getNumber() }}
-														-
-														{{ card.getColor() }}
-													</p>
-												{% endif %}
-											{% endif %}
-										</li>
-									{% else %}
-										<li class="pas-tour">
-											{% if accumulation > 0 %}
-												{% if topDiscardCard.getNumber() === 12 and topDiscardCard.getNumber() === card.getNumber() %}
-													<a href="{{ path('user_index', {'cardId': card.getId()}) }}">
-														<p>
-															ID :
-															{{ card.getId() }}
-															-
-															{{ card.getNumber() }}
-															-
-															{{ card.getColor() }}
-														</p>
-													</a>
-												{% else %}
-													<p>
-														ID :
-														{{ card.getId() }}
-														-
-														{{ card.getNumber() }}
-														-
-														{{ card.getColor() }}
-													</p>
-												{% endif %}
-											{% else %}
-												{% if topDiscardCard.getNumber() === card.getNumber() or topDiscardCard.getColor() === card.getColor() %}
-													<a href="{{ path('user_index', {'cardId': card.getId()}) }}">
-														<p>
-															ID :
-															{{ card.getId() }}
-															-
-															{{ card.getNumber() }}
-															-
-															{{ card.getColor() }}
-														</p>
-													</a>
-												{% else %}
-													<p>
-														ID :
-														{{ card.getId() }}
-														-
-														{{ card.getNumber() }}
-														-
-														{{ card.getColor() }}
-													</p>
-												{% endif %}
-											{% endif %}
-										</li>
-									{% endif %}
-								{% endfor %}
-							</ul>
-						</li>
-					{% endfor %}
-				</ul>
-				<p>Défausse</p>
+	<div class="game-wrapper {% if winner %}finish{% endif %}">
+
+		<div class="game-board">
+			<div class="discard">
 				<ul>
 					{% for card in discard %}
 						<li>
-							<p>
-								ID :
-								{{ card.getId() }}
-								-
-								{{ card.getNumber() }}
-								-
-								{{ card.getColor() }}
-							</p>
+							<div class="card" id="card-{{ card.getId() }}">
+								<div class="card-inner">
+									<div class="card-front card-{{ card.getColor() }}">
+										<p>
+											{{ card.getNumber() }}
+										</p>
+									</div>
+									<div class="card-back"></div>
+								</div>
+							</div>
 						</li>
 					{% endfor %}
 				</ul>
-				<p>Deck :
-					{{ deck|length }}
-					cartes</p>
-		
-				<ul>
-					{% for card in deck %}
-						<li>
-							<p>
-								ID :
-								{{ card.getId() }}
-								-
-								{{ card.getNumber() }}
-								-
-								{{ card.getColor() }}
-							</p>
-						</li>
-					{% endfor %}
-				</ul> #}
+			</div>
+			<div class="deck">
+				<div class="side1"></div>
+				<button class="top">
+					<div class="card-inner">
+						<div class="card-back"></div>
+					</div>
+				</button>
+				<div class="side2"></div>
+			</div>
+			<div class="sens-information">
+			</div>
+		</div>
+		<div class="game-players">
+			<ul class="all-players">
+				<li class="player-area" id="user">
+					<div class="infos">
+						<div class="player-identity">
+							<p>{{ players[0].getName() }}</p>
+							<img src="" alt="">
+						</div>
+						<div class="cards-counter">
+							<p>{{ players[0].getCards()|length }}</p>
+						</div>
+					</div>
+					<ul class="player-cards user-cards">
+						{% for card in players[0].getCards() %}
+							<li>
+								<button class="user-card
+								{% if turn.getPlayerType() === 'user' %}
+									{% if accumulation > 0 %}
+										{% if topDiscardCard.getNumber() === 12 and topDiscardCard.getNumber() === card.getNumber() %}
+											can-play
+										{% endif %}
+									{% else %}
+										{% if topDiscardCard.getNumber() === card.getNumber() or topDiscardCard.getColor() === card.getColor() %}
+										can-play
+										{% endif %}
+									{% endif %}
+								{% endif %}">
+									<div class="card" id="card-{{ card.getId() }}">
+										<div class="card-inner">
+											<div class="card-front card-{{ card.getColor() }}">
+												<p>
+													{{ card.getNumber() }}
+												</p>
+											</div>
+											<div class="card-back"></div>
+										</div>
+									</div>
+								</button>
+							</li>
+						{% endfor %}
+					</ul>
+				</li>
+				<li class="player-area enemy" id="enemy1">
+					<div class="infos">
+						<div class="player-identity">
+							<p>{{ players[1].getName() }}</p>
+							<img src="" alt="">
+						</div>
+						<div class="cards-counter">
+							<p>{{ players[1].getCards()|length }}</p>
+						</div>
+					</div>
+					<ul class="player-cards enemy-cards" id="enemy-cards1">
+						{% for card in players[1].getCards() %}
+							<li>
+								<div class="card" id="card-{{ card.getId() }}">
+									<div class="card-inner">
+										<div class="card-front card-{{ card.getColor() }}">
+											<p>
+												{{ card.getNumber() }}
+											</p>
+										</div>
+										<div class="card-back"></div>
+									</div>
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
+				</li>
+				<li class="player-area enemy" id="enemy2">
+					<div class="infos">
+						<div class="player-identity">
+							<p>{{ players[2].getName() }}</p>
+							<img src="" alt="">
+						</div>
+						<div class="cards-counter">
+							<p>{{ players[2].getCards()|length }}</p>
+						</div>
+					</div>
+					<ul class="player-cards enemy-cards" id="enemy-cards2">
+						{% for card in players[2].getCards() %}
+							<li>
+								<div class="card" id="card-{{ card.getId() }}">
+									<div class="card-inner">
+										<div class="card-front card-{{ card.getColor() }}">
+											<p>
+												{{ card.getNumber() }}
+											</p>
+										</div>
+										<div class="card-back"></div>
+									</div>
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
+				</li>
+				<li class="player-area enemy" id="enemy3">
+					<div class="infos">
+						<div class="player-identity">
+							<p>{{ players[3].getName() }}</p>
+							<img src="" alt="">
+						</div>
+						<div class="cards-counter">
+							<p>{{ players[3].getCards()|length }}</p>
+						</div>
+					</div>
+					<ul class="player-cards enemy-cards" id="enemy-cards3">
+						{% for card in players[3].getCards() %}
+							<li>
+								<div class="card" id="card-{{ card.getId() }}">
+									<div class="card-inner">
+										<div class="card-front card-{{ card.getColor() }}">
+											<p>
+												{{ card.getNumber() }}
+											</p>
+										</div>
+										<div class="card-back"></div>
+									</div>
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="game-hud">
+			<h1>Play</h1>
+			<a href="{{ path('start_index')}}" class="button">Reset</a>
+		</div>
+		{# <p>Sens :
+																																{% if sens === 1 %}Normal{% else %}Inversé
+																																{% endif %}
+																															</p>
+																															<p>
+																																Accumulation :
+																																{{ accumulation }}
+																															</p>
+																															<p>Deck :
+																																{{ deck|length }}
+																																cartes</p>
+																															{% if turn.getPlayerType() === 'user' and cardPicked === false %}
+																																<a href="{{ path('deck_index', {'playerId': turn.getId()}) }}">Piocher-
+																																	{% if cardPicked === true %}CardPicked true{% elseif cardPicked === false %}CardPicked false{% elseif cardPicked === null %}CardPicked null
+																																	{% endif %}
+																																</a>
+																															{% else %}
+																																<p>Piocher -
+																																	{% if cardPicked === true %}CardPicked true{% elseif cardPicked === false %}CardPicked false{% elseif cardPicked === null %}CardPicked null
+																																	{% endif %}
+																																</p>
+																															{% endif %}
+																															<p>Ordre des joueurs :</p>
+																															<ul style="display: flex; gap: 40px">
+																																{% for player in players %}
+																																	{% if turn.getId() === player.getId() %}
+																																		<a href="">
+																																			<li>
+																																				<p>{{ player.getName() }}
+																																					- Cartes :
+																																					{{ player.getCards()|length }}</p>
+																																			</li>
+																																		</a>
+																																	{% else %}
+																																		<li>
+																																			<p>{{ player.getName() }}
+																																				- Cartes :
+																																				{{ player.getCards()|length }}</p>
+																																		</li>
+																																	{% endif %}
+																																{% endfor %}
+																															</ul>
+																															{% if enemyCardPlayed %}
+																																<p>Carte ennemie jouée :
+																																	{{ enemyCardPlayed.getColor() }}
+																																	-
+																																	{{ enemyCardPlayed.getNumber() }}
+																																	{% if enemyCardPlayed.getNumber() === 12 %}- Carte + 2 !
+																																	{% endif %}
+																																	{% if enemyCardPlayed.getNumber() === 11 %}- Carte Changement de sens !
+																																	{% endif %}
+																																	{% if enemyCardPlayed.getNumber() === 10 %}- Carte Saute tour !
+																																	{% endif %}
+																																</p>
+																															{% endif %}
+																															<p>Tour de :
+																																{{ turn.getName() }}</p>
+																															<p>Carte du dessus de la pile :
+																																{{ topDiscardCard.getColor() }}
+																																-
+																																{{ topDiscardCard.getNumber() }}
+																																{% if topDiscardCard.getNumber() === 12 %}- Carte + 2 !
+																																{% endif %}
+																																{% if topDiscardCard.getNumber() === 11 %}- Carte Changement de sens !
+																																{% endif %}
+																																{% if topDiscardCard.getNumber() === 10 %}- Carte Saute tour !
+																																{% endif %}
+																															</p>
+																														
+																															<p>Joueurs</p>
+																															<ul style="display: flex; justify-content: space-between">
+																																{% for player in players %}
+																																	<li>
+																																		<p>
+																																			{{ player.getId() }}
+																																			-
+																																			{{ player.getName() }}
+																																			-
+																																			{{ player.getPlayerType() }}
+																																			-
+																																			{{ player.getCards()|length }}
+																																			cartes
+																																		</p>
+																																		<ul>
+																																			{% for card in player.getCards() %}
+																																				{% if player.getPlayerType() === 'user' %}
+																																					<li class="{% if turn.getPlayerType() !== 'user' %}pas-tour{% endif %} ">
+																																						{% if accumulation > 0 %}
+																																							{% if topDiscardCard.getNumber() === 12 and topDiscardCard.getNumber() === card.getNumber() %}
+																																								<a href="{{ path('user_index', {'cardId': card.getId()}) }}">
+																																									<p>
+																																										ID :
+																																										{{ card.getId() }}
+																																										-
+																																										{{ card.getNumber() }}
+																																										-
+																																										{{ card.getColor() }}
+																																									</p>
+																																								</a>
+																																							{% else %}
+																																								<p>
+																																									ID :
+																																									{{ card.getId() }}
+																																									-
+																																									{{ card.getNumber() }}
+																																									-
+																																									{{ card.getColor() }}
+																																								</p>
+																																							{% endif %}
+																																						{% else %}
+																																							{% if topDiscardCard.getNumber() === card.getNumber() or topDiscardCard.getColor() === card.getColor() %}
+																																								<a href="{{ path('user_index', {'cardId': card.getId()}) }}">
+																																									<p>
+																																										ID :
+																																										{{ card.getId() }}
+																																										-
+																																										{{ card.getNumber() }}
+																																										-
+																																										{{ card.getColor() }}
+																																									</p>
+																																								</a>
+																																							{% else %}
+																																								<p>
+																																									ID :
+																																									{{ card.getId() }}
+																																									-
+																																									{{ card.getNumber() }}
+																																									-
+																																									{{ card.getColor() }}
+																																								</p>
+																																							{% endif %}
+																																						{% endif %}
+																																					</li>
+																																				{% else %}
+																																					<li class="pas-tour">
+																																						{% if accumulation > 0 %}
+																																							{% if topDiscardCard.getNumber() === 12 and topDiscardCard.getNumber() === card.getNumber() %}
+																																								<a href="{{ path('user_index', {'cardId': card.getId()}) }}">
+																																									<p>
+																																										ID :
+																																										{{ card.getId() }}
+																																										-
+																																										{{ card.getNumber() }}
+																																										-
+																																										{{ card.getColor() }}
+																																									</p>
+																																								</a>
+																																							{% else %}
+																																								<p>
+																																									ID :
+																																									{{ card.getId() }}
+																																									-
+																																									{{ card.getNumber() }}
+																																									-
+																																									{{ card.getColor() }}
+																																								</p>
+																																							{% endif %}
+																																						{% else %}
+																																							{% if topDiscardCard.getNumber() === card.getNumber() or topDiscardCard.getColor() === card.getColor() %}
+																																								<a href="{{ path('user_index', {'cardId': card.getId()}) }}">
+																																									<p>
+																																										ID :
+																																										{{ card.getId() }}
+																																										-
+																																										{{ card.getNumber() }}
+																																										-
+																																										{{ card.getColor() }}
+																																									</p>
+																																								</a>
+																																							{% else %}
+																																								<p>
+																																									ID :
+																																									{{ card.getId() }}
+																																									-
+																																									{{ card.getNumber() }}
+																																									-
+																																									{{ card.getColor() }}
+																																								</p>
+																																							{% endif %}
+																																						{% endif %}
+																																					</li>
+																																				{% endif %}
+																																			{% endfor %}
+																																		</ul>
+																																	</li>
+																																{% endfor %}
+																															</ul>
+																															<p>Défausse</p>
+																															<ul>
+																																{% for card in discard %}
+																																	<li>
+																																		<p>
+																																			ID :
+																																			{{ card.getId() }}
+																																			-
+																																			{{ card.getNumber() }}
+																																			-
+																																			{{ card.getColor() }}
+																																		</p>
+																																	</li>
+																																{% endfor %}
+																															</ul>
+																															<p>Deck :
+																																{{ deck|length }}
+																																cartes</p>
+																														
+																															<ul>
+																																{% for card in deck %}
+																																	<li>
+																																		<p>
+																																			ID :
+																																			{{ card.getId() }}
+																																			-
+																																			{{ card.getNumber() }}
+																																			-
+																																			{{ card.getColor() }}
+																																		</p>
+																																	</li>
+																																{% endfor %}
+																															</ul> #}
 	</div>
 	{# Timers pour ralentir les tours pour que l'utilisateur puisse voir le déroulé de la partie #}
 	{% if winner === null %}
