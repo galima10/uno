@@ -1,0 +1,40 @@
+.pas-tour {
+    pointer-events: none;
+}
+
+.finish {
+    pointer-events: none;
+}
+
+.game {
+    background-color: rgb(255, 147, 32);
+    width: 100vw;
+    height: 200vh;
+    position: absolute;
+    transform: rotateX(50deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+}
+
+.card {
+    width: 4.5rem;
+    height: 6.5rem;
+    background-color: aqua;
+    transform-style: preserve-3d;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+#c1 {
+    transform: rotate(8deg);
+}
+
+#c2 {
+    transform: rotate(65deg);
+}
