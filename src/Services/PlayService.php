@@ -109,8 +109,6 @@ class PlayService
 
       // On regarde bien si le joueur utilisateur ne peut vraiment plus jouer après avoir piocher
       if ($cardPicked) {
-        print_r($useCards);
-        echo 'true';
         if (empty($useCards)) {
           $cardPicked = null;
           $this->session->set('cardPicked', null);

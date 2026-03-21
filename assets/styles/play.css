@@ -22,11 +22,7 @@
 }
 
 .actual-turn {
-    filter: drop-shadow(0 0 .75rem rgb(11, 201, 175));
-}
-
-.pas-tour {
-    pointer-events: none;
+    filter: drop-shadow(0 0 0.75rem rgb(11, 201, 175));
 }
 
 .finish {
@@ -50,6 +46,9 @@
     pointer-events: none;
     width: 4rem;
     height: 5.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     ul,
     li {
         width: 100%;
@@ -63,9 +62,48 @@
     }
 }
 
+.accumulation {
+    width: 8.5rem;
+    height: 8.5rem;
+    position: absolute;
+    border:  .3rem solid red;
+    border-radius: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .arrow-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &.left {
+            transform: rotate(-90deg);
+        }
+        &.bottom {
+            transform: rotate(180deg);
+        }
+        &.right {
+            transform: rotate(270deg);
+        }
+    }
+    .arrow {
+        width: 2rem;
+        height: 2rem;
+        position: absolute;
+        bottom: calc(100% + 1rem);
+        background-color: red;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+    .accumuation-counter {
+        position: absolute;
+    }
+}
+
 .deck {
-    width: 4rem;
-    height: 5.8rem;
+    width: 4.75rem;
+    height: 6.55rem;
     transform: rotate(-45deg);
     position: absolute;
     top: 6rem;
@@ -74,12 +112,14 @@
     overflow: hidden;
     transition: box-shadow 0.3s ease-in-out;
     border-radius: 1.25rem 0.45rem 1.25rem 0.45rem;
-    &:hover {
+    &.can-hover:hover {
         box-shadow: 0 0 1rem rgba(11, 201, 175, 0.75);
+        .top {
+            cursor: pointer;
+        }
     }
     .top {
         overflow: hidden;
-        cursor: pointer;
         border-radius: 0rem 0.45rem 0rem 0;
         flex-shrink: 0;
         background-color: white;
@@ -200,14 +240,6 @@
     background-color: rgb(44, 157, 44);
 }
 
-#c1 {
-    transform: rotate(8deg);
-}
-
-#c2 {
-    transform: rotate(65deg);
-}
-
 .infos {
     position: absolute;
     display: flex;
@@ -274,8 +306,9 @@
     position: absolute;
     width: fit-content;
     height: fit-content;
-
-    &#user {
+    min-height: 5.8rem;
+    min-width: 4rem;
+    &#user-area {
         bottom: 0;
         .player-cards li {
             margin: 0 -0.9rem;
@@ -284,12 +317,7 @@
             right: calc(100% + 5rem);
         }
     }
-    &.enemy {
-        .player-cards li {
-            margin: 0 -1rem;
-        }
-    }
-    &#enemy1 {
+    &#enemy1-area {
         left: 0;
         transform: translateY(2rem);
         .infos {
@@ -297,7 +325,7 @@
             bottom: calc(100% + 3rem);
         }
     }
-    &#enemy2 {
+    &#enemy2-area {
         top: 0;
         .player-cards li {
             margin: 0 -1.2rem;
@@ -307,19 +335,52 @@
             bottom: 20%;
         }
     }
-    &#enemy3 {
-        right: -4rem;
+    &#enemy3-area {
+        right: 0;
         transform: translateY(2rem);
         .infos {
-            right: 0;
+            right: -4rem;
             bottom: calc(100% + 4rem);
         }
+    }
+}
+
+.enemy-area {
+    .player-cards li {
+        margin: 0 -1rem;
     }
 }
 
 .player-cards {
     width: fit-content;
     display: flex;
+}
+
+.card-container {
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    transform: rotateX(45deg);
+}
+
+.deck-card {
+    border: 0.2rem solid white;
+    background: radial-gradient(#5f6539 10%, #5e6338 50%, #464a2a 100%);
+    border-radius: 0.45rem;
+    width: 4rem;
+    height: 5.8rem;
+}
+
+.game-animation-container {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #enemy-cards1 {
@@ -376,12 +437,27 @@
         box-shadow 0.3s ease-in-out;
     border-radius: 0.45rem;
     filter: brightness(0.65);
-    &:is(.can-play) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .card {
+        transition: transform 0.3s ease-in-out;
+    }
+    &.can-play:not(.user-card-played) {
         filter: brightness(1);
         cursor: pointer;
-        &:hover {
-            transform: translateY(-2rem) translateX(-0.6rem);
-            box-shadow: 0 0 1rem rgba(11, 201, 175, 0.75);
+        .card {
+            &:hover {
+                transform: translateY(-2rem) translateX(-0.6rem);
+                box-shadow: 0 0 1rem rgba(11, 201, 175, 0.75);
+            }
         }
+    }
+}
+
+.user-card-played {
+    filter: brightness(1);
+    .card {
+        transform: rotateX(45deg);
     }
 }

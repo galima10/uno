@@ -6,6 +6,10 @@
 
 <div>
     <h1>Win de {{ winner.getName() }}</h1>
-    <a href="{{ path('start_index') }}">Recommencer</a>
+    <button onclick="location.reload();
+    window.location.href="{{ path('start_index') }}";">Recommencer</button>
 </div>
+<script>
+    
+</script>
 {% endblock %}

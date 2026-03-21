@@ -148,5 +148,6 @@ class StartService
     $this->session->set('cardPicked', false);
     $this->session->set('accumulation', 0);
     $this->session->set('sens', 1);
+    $this->session->set('winner', null);
   }
 }
