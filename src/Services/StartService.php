@@ -137,7 +137,7 @@ class StartService
 
     // Création de 4 joueurs auxquels on distribue 7 cartes chacun
     $this->createPlayers(4);
-    $this->distributeCards(14);
+    $this->distributeCards(7);
 
     $this->session->set('players', $this->players);
     // $this->session->set('discard', [$this->getFirstCard(), $this->getFirstCard()]);
