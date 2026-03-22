@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Chargement de la partie
-{% endblock %}
+{% block title %}Chargement de la partie{% endblock %}
 
 {% block body %}
 <div>
-    <h1 style="color: white; margin-top: 3rem; margin-left: 3rem; font-size: 1.5rem">Chargement des cartes...</h1>
+    <h1 id="loading-text" style="color: white; margin-top: 3rem; margin-left: 3rem; font-size: 1.5rem">
+        Chargement des cartes... 0%
+    </h1>
 </div>
 
 <script>
@@ -21,7 +22,8 @@
         window.clearPlayTimeouts();
     }
 
-    // Préchargement des images pour éviter qu'elles saccadent
+    const loadingText = document.getElementById("loading-text");
+
     // liste des images
     const images = [
     {% for color in ['red','yellow','blue','green'] %}
@@ -40,17 +42,30 @@
     {% endfor %}
     ];
 
-    let loaded = 0;
+    async function preloadImages(list) {
+        let loaded = 0;
 
-    images.forEach(src => {
-        const img = new Image();
-        img.onload = img.onerror = () => {
-            loaded++;
-            if (loaded === images.length) {
-                window.location.href = "{{ path('play_index') }}";
+        for (const src of list) {
+            const img = new Image();
+            img.src = src;
+
+            try {
+                await img.decode();
+            } catch(e) {
+                // ignore erreurs
             }
-        };
-        img.src = src;
+
+            loaded++;
+            const percent = Math.round((loaded / list.length) * 100);
+            loadingText.textContent = "Chargement des cartes... " + percent + "%";
+        }
+    }
+
+    preloadImages(images).then(() => {
+        setTimeout(() => {
+            window.location.href = "{{ path('play_index') }}";
+            // Turbo.visit("{{ path('play_index') }}", { action: "replace" });
+        }, 50);
     });
 </script>
 {% endblock %}

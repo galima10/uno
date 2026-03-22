@@ -1,4 +1,5 @@
 document.addEventListener("turbo:load", () => {
+
     window.playTimeouts = [];
 
     window.playTimeout = function (fn, delay) {
@@ -51,6 +52,7 @@ document.addEventListener("turbo:load", () => {
                         );
                     }, 400);
                     playTimeout(() => {
+                        // Turbo.visit(url);
                         window.location.href = url;
                     }, 650);
                 }, 3000);
@@ -66,20 +68,32 @@ document.addEventListener("turbo:load", () => {
                         "*",
                     );
                     playTimeout(
-                        () => (window.location.href = deckBaseUrl),
+                        () => {
+                            window.location.href = deckBaseUrl
+                            // Turbo.visit(deckBaseUrl);
+                        },
                         150,
                     );
                 }, 3000);
             } else {
-                playTimeout(() => location.reload(), 500);
+                playTimeout(() => {
+                    // location.reload()
+                    Turbo.visit(window.location.href, { action: "replace" });
+                }, 500);
             }
         } else {
             if (cardPicked === null) {
-                playTimeout(() => location.reload(), 500);
+                playTimeout(() => {
+                    // location.reload()
+                    Turbo.visit(window.location.href, { action: "replace" });
+                }, 500);
             }
         }
     } else {
-        playTimeout(() => (window.location.href = endBaseUrl), 3000);
+        playTimeout(() => {
+            window.location.href = endBaseUrl
+            // Turbo.visit(endBaseUrl);
+        }, 3000);
     }
 
     if (!window.turboDeckListenerAdded) {
@@ -101,6 +115,7 @@ document.addEventListener("turbo:load", () => {
                 );
                 playTimeout(() => {
                     window.location.href = deckBaseUrl;
+                    // Turbo.visit(deckBaseUrl);
                 }, 150);
             }
         }
@@ -144,6 +159,7 @@ document.addEventListener("turbo:load", () => {
                     }, 400);
 
                     playTimeout(() => {
+                        // Turbo.visit(url);
                         window.location.href = url;
                     }, 450);
                 }
