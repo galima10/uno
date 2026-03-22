@@ -59,6 +59,10 @@ class EndService
       }
     }
 
+    usort($globalLeaderBoard, function ($a, $b) {
+      return $b['score'] <=> $a['score'];
+    });
+
     $this->session->set('globalLeaderBoard', $globalLeaderBoard);
     return $globalLeaderBoard;
   }

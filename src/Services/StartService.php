@@ -155,12 +155,15 @@ class StartService
     $this->createDeck();
     $this->mixDeck();
 
+    // Vérifier si les joueurs existent déjà dans la session
     $this->players = $this->session->get('players');
-    // Création de 4 joueurs auxquels on distribue 7 cartes chacun
-    $this->createPlayers(4, $this->enemyData($this->allEnemies), $this->players);
-    $this->distributeCards(7);
+    if (empty($this->players)) {
+      // Si les joueurs n'existent pas, les créer
+      $this->createPlayers(4, $this->enemyData($this->allEnemies), []);
+    }
 
-    // $this->session->set('players', $this->players);
+    // Réinitialiser les données de jeu
+    $this->distributeCards(2);
     $this->session->set('discard', [$this->getFirstCard()]);
     $this->session->set('deck', $this->deck);
     $this->session->set('turn', $this->getFirstTurn());

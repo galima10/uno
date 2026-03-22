@@ -183,12 +183,21 @@
 }
 
 .sens-information {
-    width: 40%;
-    height: 40%;
+    width: 20rem;
+    height: 20rem;
     position: absolute;
     border: 2rem solid rgba(255, 255, 255, 0.25);
     border-radius: 50%;
+    opacity: .25;
 }
+
+.sens-normal {
+    background-color: yellow;
+}
+.sens-inverse {
+    background-color: blue;
+}
+
 
 .card {
     width: 4rem;
