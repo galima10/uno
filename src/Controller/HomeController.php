@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 final class HomeController extends AbstractController
 {
+    // Vraie page d'accueil de l'app
     #[Route('/home', name: 'home_index')]
     public function index(SessionInterface $session): Response
     {

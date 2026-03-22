@@ -61,6 +61,7 @@ class EndService
         }
       }
 
+      // On remet dans l'ordre le classement final
       usort($globalLeaderBoard, function ($a, $b) {
         return $b['score'] <=> $a['score'];
       });
@@ -82,7 +83,7 @@ class EndService
     });
 
     // Points à distribuer
-    $points = [100, 75, 50, 25];
+    $points = [150, 100, 50, 0];
 
     foreach ($players as $index => $player) {
       $actualRoundLeaderBoard[] = [

@@ -54,6 +54,7 @@ class PlayService
     ];
   }
 
+  // On génère un angle compris entre -10deg et 10deg pour avoir une pile de défausse irrégulière dans l'UI
   private function setRandomAngleByPlayer($turn, $topDiscardCard)
   {
     $randomAngle = rand(-5, 5) * 2;
@@ -74,6 +75,7 @@ class PlayService
 
     if ($winner) {
       $this->session->set('winner', $winner);
+      // Statut pour éviter d'ajouter en boucle les points à la fin si la page /end est rechargée plusieurs fois
       $this->session->set('endStatus', 'finish');
     };
     return $winner;

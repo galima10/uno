@@ -117,6 +117,8 @@ class PlayerService
 
     $userCards = array_filter($userCards, fn($card) => $card->getId() !== $currentCard->getId());
     $player->setCards($userCards);
+
+    // On défini l'angle de la carte en fonction du joueur qui l'a posé (pour les animations JS dans l'UI)
     $currentCard->setAngle(0);
     if ($player->getId() === 0) {
       $currentCard->setAngle($cardAngle);

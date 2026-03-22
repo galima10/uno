@@ -7,7 +7,7 @@
 	{# Wrapper de toute l'app pour éviter que l'audio ne se coupe à cause des rechargements et des redirections des pages #}
 	<div>
 		{# Balises pour l'audio en fond #}
-		<audio id="background-music" src="{{ asset('audio/start.mp3') }}" autoplay loop muted></audio>
+		<audio id="background-music" src="{{ asset('audio/home.mp3') }}" autoplay loop muted></audio>
 		<audio id="background-card" src=""></audio>
 
 		<!-- Iframe pour encapsuler le jeu -->
@@ -22,7 +22,7 @@
 	</div>
 	{# Définition des chemins des fichiers audios #}
 	{% set audioFiles = {
-    'start': 'start.mp3',
+    'home': 'home.mp3',
     'game': 'game.mp3',
     'card': 'card.mp3',
 	} %}
