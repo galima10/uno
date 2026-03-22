@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UNO - par Magali
+{% endblock %}
+
+{% block body %}
+	<div class="end-wrapper">
+		<audio id="background-music" src="{{ asset('audio/roi.mp3') }}" autoplay loop muted></audio>
+		<audio id="background-card" src=""></audio>
+
+		<!-- Iframe pour encapsuler le jeu -->
+		<iframe src="{{ path('home_index') }}" style="width: 100%; height: 100vh; border: none;"></iframe>
+
+		<!-- Boîte de dialogue pour demander l'autorisation -->
+		<div class="audio-permission" id="audio-permission">
+			<p>Ce jeu nécessite l'activation de l'audio pour une meilleure expérience. Cliquez sur "Activer l'audio" pour continuer.</p>
+			<button id="enable-audio" class="button">Activer l'audio</button>
+		</div>
+
+	</div>
+	{% set audioFiles = {
+    'astrid': 'astrid.mp3',
+    'card': 'card.mp3',
+	} %}
+	<script>
+		const audioMap = {
+				{% for key, file in audioFiles %}
+						"{{ key }}": "{{ asset('audio/' ~ file) }}",
+				{% endfor %}
+		};
+		const audio = document.getElementById('background-music');
+	  const card = document.getElementById('background-card');
+	  const permissionDialog = document.getElementById('audio-permission');
+	  const enableAudioButton = document.getElementById('enable-audio');
+	
+	
+	
+	  // Activer l'audio lorsque l'utilisateur clique sur le bouton
+	  enableAudioButton.addEventListener('click', () => {
+	    audio.muted = false;
+	    audio.volume = .05;
+	    card.muted = false;
+	    card.volume = .5;
+	    audio.play().then(() => {
+	      // Masquer la boîte de dialogue après activation
+	      permissionDialog.style.display = 'none';
+	    }).catch(error => {
+	      console.error('Erreur lors de l\'activation de l\'audio :', error);
+	    });
+	  });
+
+		window.addEventListener('message', (event) => {
+				if (event.data && event.data.audioSource) {
+						const path = audioMap[event.data.audioSource];
+						console.log(path)
+						if (!path) return;
+
+						if (event.data.target === "music") {
+								audio.src = path;
+								if (event.data.loop !== undefined) audio.loop = event.data.loop;
+								audio.play().catch(err => console.error("Erreur musique :", err));
+						} else if (event.data.target === "card") {
+								card.src = path;
+								card.play().catch(err => console.error("Erreur son carte :", err));
+						}
+				}
+		});
+	</script>
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello WinController!
+{% block title %}Fin de la partie !
 {% endblock %}
 
 {% block body %}
@@ -49,8 +49,16 @@
 
 	</div>
 	 <script>
-						    if (window.clearPlayTimeouts) {
-						        window.clearPlayTimeouts();
-						    }
-						</script>
+	 window.parent.postMessage(
+			{
+					target: "music",
+					audioSource: "astrid",
+					loop: true,
+			},
+			"*",
+	);
+		if (window.clearPlayTimeouts) {
+				window.clearPlayTimeouts();
+		}
+</script>
 {% endblock %}

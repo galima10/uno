@@ -41,12 +41,30 @@ document.addEventListener("turbo:load", () => {
                     enemyPlaceCard(turnId, enemyCardPlayed, cardAngle);
                     const url = enemyBaseUrl.replace("10", cardAngle);
                     playTimeout(() => {
+                        window.parent.postMessage(
+                            {
+                                target: "card",
+                                audioSource: "card",
+                                loop: false,
+                            },
+                            "*",
+                        );
+                    }, 400);
+                    playTimeout(() => {
                         window.location.href = url;
                     }, 650);
                 }, 3000);
             } else if (cardPicked === false) {
                 playTimeout(() => {
                     pickCard();
+                    window.parent.postMessage(
+                        {
+                            target: "card",
+                            audioSource: "card",
+                            loop: false,
+                        },
+                        "*",
+                    );
                     playTimeout(
                         () => (window.location.href = deckBaseUrl),
                         150,
@@ -73,6 +91,14 @@ document.addEventListener("turbo:load", () => {
         if (deck && (e.target === deck || deck.contains(e.target))) {
             if (cardPicked === false && turnPlayerType === "user") {
                 pickCard();
+                window.parent.postMessage(
+                    {
+                        target: "card",
+                        audioSource: "card",
+                        loop: false,
+                    },
+                    "*",
+                );
                 playTimeout(() => {
                     window.location.href = deckBaseUrl;
                 }, 150);
@@ -106,6 +132,16 @@ document.addEventListener("turbo:load", () => {
                         "100-10",
                         `${cardId}-${cardAngle}`,
                     );
+                    playTimeout(() => {
+                        window.parent.postMessage(
+                            {
+                                target: "card",
+                                audioSource: "card",
+                                loop: false,
+                            },
+                            "*",
+                        );
+                    }, 400);
 
                     playTimeout(() => {
                         window.location.href = url;
@@ -173,7 +209,9 @@ document.addEventListener("turbo:load", () => {
             ".game-animation-container .card-container",
         );
         const enemyElement = document.querySelector(`#enemy-cards${turnId}`);
-        const card = enemyElement.querySelector(`#card-${parseInt(enemyCardPlayed)}`);
+        const card = enemyElement.querySelector(
+            `#card-${parseInt(enemyCardPlayed)}`,
+        );
         const cardImgSrc = card.querySelector(".card-front img").src;
         const animationCard = document.createElement("div");
         const gamePlayers = document.querySelector(".game-players");
@@ -196,7 +234,8 @@ document.addEventListener("turbo:load", () => {
         const enemyElementCenterDeltaY =
             gamePlayers.getBoundingClientRect().height / 2 -
             enemyElement.getBoundingClientRect().top -
-            enemyElement.getBoundingClientRect().height / 2 - 2;
+            enemyElement.getBoundingClientRect().height / 2 -
+            2;
 
         let transform = `translate3d(${-enemyElementCenterDeltaX}px, ${-enemyElementCenterDeltaY}px, 0)`;
         let finalTransform;

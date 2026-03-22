@@ -16,4 +16,10 @@ final class HomeController extends AbstractController
         $session->set('players', []);
         return $this->render('home/index.html.twig');
     }
+
+    #[Route('/', name: 'root_index')]
+    public function root(): Response
+    {
+        return $this->render('index.html.twig');
+    }
 }

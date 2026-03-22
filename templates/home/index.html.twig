@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello StartController!
+{% block title %}UNO - par Magali
 {% endblock %}
 
 {% block body %}
@@ -18,6 +18,10 @@
 		</p>
 	</div>
     <script>
+    //  Nettoyer les timers pour éviter une redirection en attente
+        if (window.clearPlayTimeouts) {
+		    window.clearPlayTimeouts();
+		}
         const allCards = document.querySelector(".all-cards");
         const allCardsButton = document.getElementById("allCards");
         const closeButton = document.getElementById("close");
