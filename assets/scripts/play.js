@@ -153,7 +153,6 @@ document.addEventListener("turbo:load", () => {
                     }, 400);
 
                     playTimeout(() => {
-                        // Turbo.visit(url);
                         window.location.href = url;
                     }, 450);
                 }
