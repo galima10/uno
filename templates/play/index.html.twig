@@ -237,42 +237,5 @@
 	data-end-base-url="{{ path('end_index') }}" 
 	data-deck-base-url="{{ path('deck_index', {'playerId': turn.getId(), 'cardAngle': cardAngle}) }}">
 </div>
-{# Préchargement des images pour éviter qu'elles saccadent #}
-<script>
-	const images = [
-		{% for color in ['red','yellow','blue','green'] %}
-			{% for i in 0..12 %}
-			"{{ asset('images/cards/' ~ color ~ '_' ~ i ~ '.webp') }}",
-			{% endfor %}
-		{% endfor %}
-
-		{% set players = [
-        'lucas',
-        'emma',
-        'noah',
-        'lea',
-        'hugo',
-        'jade',
-        'louis',
-        'chloe',
-        'nathan',
-        'manon',
-        'enzo',
-        'camille',
-        'gabriel',
-        'sarah',
-        'mathis'
-    ] %}
-
-		{% for player in players %}
-        "{{ asset('images/players/' ~ player ~ '.webp') }}",
-    {% endfor %}
-	];
-
-	images.forEach(src => {
-			const img = new Image();
-			img.src = src;
-	});
-</script>
 <script src="{{ asset('scripts/play.js') }}"></script>
 {% endblock %}

@@ -3,21 +3,56 @@
 {% block title %}Chargement de la partie
 {% endblock %}
 
+{% block title %}Chargement de la partie{% endblock %}
+
 {% block body %}
-	 <script>
-    //  Lancement de la musique de jeu
-     window.parent.postMessage(
-        {
-            target: "music",
-            audioSource: "game",
-            loop: true,
-        },
-        "*",
-    );
-    //  Nettoyer les timers pour éviter une redirection en attente
-        if (window.clearPlayTimeouts) {
-		    window.clearPlayTimeouts();
-		}
-        window.location.href = "{{ path('play_index') }}";
-    </script>
+<div>
+    <h1 style="color: white;">Chargement des cartes...</h1>
+</div>
+
+<script>
+    // musique
+    window.parent.postMessage({
+        target: "music",
+        audioSource: "game",
+        loop: true,
+    }, "*");
+
+    // nettoyer timers
+    if (window.clearPlayTimeouts) {
+        window.clearPlayTimeouts();
+    }
+
+    Préchargement des images pour éviter qu'elles saccadent
+    // liste des images
+    const images = [
+    {% for color in ['red','yellow','blue','green'] %}
+        {% for i in 0..12 %}
+        "{{ asset('images/cards/' ~ color ~ '_' ~ i ~ '.webp') }}",
+        {% endfor %}
+    {% endfor %}
+
+    {% set players = [
+        'lucas','emma','noah','lea','hugo','jade','louis','chloe',
+        'nathan','manon','enzo','camille','gabriel','sarah','mathis'
+    ] %}
+
+    {% for player in players %}
+        "{{ asset('images/players/' ~ player ~ '.webp') }}",
+    {% endfor %}
+    ];
+
+    let loaded = 0;
+
+    images.forEach(src => {
+        const img = new Image();
+        img.onload = img.onerror = () => {
+            loaded++;
+            if (loaded === images.length) {
+                window.location.href = "{{ path('play_index') }}";
+            }
+        };
+        img.src = src;
+    });
+</script>
 {% endblock %}
