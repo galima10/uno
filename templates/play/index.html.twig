@@ -13,18 +13,8 @@
 						<li>
 							<div class="card" id="card-{{ card.getId() }}" {% if card.getAngle() %}style="transform: rotate({{ card.getAngle() }}deg)"{% endif %}>
 								<div class="card-inner">
-									<div class="card-front card-{{ card.getColor() }}">
-										<p>
-											{% if card.getNumber() === 12 %}
-												+2
-											{% elseif card.getNumber() === 11 %}
-												⇵
-											{% elseif card.getNumber() === 10 %}
-												⊘
-											{% else %}
-												{{ card.getNumber() }}
-											{% endif %}
-										</p>
+									<div class="card-front">
+										<img class="card-img" src="{{ asset(card.getImg()) }}" alt="">
 									</div>
 									<div class="card-back"></div>
 								</div>
@@ -97,18 +87,8 @@
 								{% endif %}">
 									<div class="card" id="card-{{ card.getId() }}">
 										<div class="card-inner">
-											<div class="card-front card-{{ card.getColor() }}">
-												<p>
-													{% if card.getNumber() === 12 %}
-														+2
-													{% elseif card.getNumber() === 11 %}
-														⇵
-													{% elseif card.getNumber() === 10 %}
-														⊘
-													{% else %}
-														{{ card.getNumber() }}
-													{% endif %}
-												</p>
+											<div class="card-front">
+												<img class="card-img" src="{{ asset(card.getImg()) }}" alt="">
 											</div>
 											<div class="card-back"></div>
 										</div>
@@ -133,18 +113,8 @@
 							<li>
 								<div class="card" id="card-{{ card.getId() }}">
 									<div class="card-inner">
-										<div class="card-front card-{{ card.getColor() }}">
-											<p>
-												{% if card.getNumber() === 12 %}
-													+2
-												{% elseif card.getNumber() === 11 %}
-													⇵
-												{% elseif card.getNumber() === 10 %}
-													⊘
-												{% else %}
-													{{ card.getNumber() }}
-												{% endif %}
-											</p>
+										<div class="card-front">
+											<img class="card-img" src="{{ asset(card.getImg()) }}" alt="">
 										</div>
 										<div class="card-back"></div>
 									</div>
@@ -168,18 +138,8 @@
 							<li>
 								<div class="card" id="card-{{ card.getId() }}">
 									<div class="card-inner">
-										<div class="card-front card-{{ card.getColor() }}">
-											<p>
-												{% if card.getNumber() === 12 %}
-													+2
-												{% elseif card.getNumber() === 11 %}
-													⇵
-												{% elseif card.getNumber() === 10 %}
-													⊘
-												{% else %}
-													{{ card.getNumber() }}
-												{% endif %}
-											</p>
+										<div class="card-front">
+											<img class="card-img" src="{{ asset(card.getImg()) }}" alt="">
 										</div>
 										<div class="card-back"></div>
 									</div>
@@ -203,18 +163,8 @@
 							<li>
 								<div class="card" id="card-{{ card.getId() }}">
 									<div class="card-inner">
-										<div class="card-front card-{{ card.getColor() }}">
-											<p>
-												{% if card.getNumber() === 12 %}
-													+2
-												{% elseif card.getNumber() === 11 %}
-													⇵
-												{% elseif card.getNumber() === 10 %}
-													⊘
-												{% else %}
-													{{ card.getNumber() }}
-												{% endif %}
-											</p>
+										<div class="card-front">
+											<img class="card-img" src="{{ asset(card.getImg()) }}" alt="">
 										</div>
 										<div class="card-back"></div>
 									</div>

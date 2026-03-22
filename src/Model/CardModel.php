@@ -28,8 +28,8 @@ class CardModel
   }
   private function setImg($color, $number)
   {
-    if (is_int($number) && $number >= 0 && $number <= 12 && is_string($color) && in_array($color, ['red', 'yellow', 'blue', 'green'])) $this->img = sprintf('assets/images/cards/%s_%d.webp', $color, $number);
-    else $this->img = 'assets/images/cards/back.webp'; // dos de la carte par défaut
+    if (is_int($number) && $number >= 0 && $number <= 12 && is_string($color) && in_array($color, ['red', 'yellow', 'blue', 'green'])) $this->img = sprintf('images/cards/%s_%d.webp', $color, $number);
+    else $this->img = 'images/cards/back.webp'; // dos de la carte par défaut
   }
 
   private function setNumber($newNumber)
