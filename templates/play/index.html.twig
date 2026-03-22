@@ -23,7 +23,7 @@
 					{% endfor %}
 				</ul>
 				{% if accumulation > 0 %}
-					<div class="accumulation">
+					<div class="accumulation {% if topDiscardCard.getColor() === 'red' %}red{% elseif topDiscardCard.getColor() === 'blue' %}blue{% elseif topDiscardCard.getColor() === 'green' %}green{% else %}yellow{% endif %}">
 						<p class="accumuation-counter">+{{ accumulation }}</p>
 						<div class="arrow-container {% if turn.getId() === 0 %}bottom{% elseif turn.getId() === 1 %}left{% elseif turn.getId() === 3 %}right{% endif %}">
 							<div class="arrow"></div>
@@ -184,6 +184,7 @@
 			<a href="{{ path('home_index')}}" class="button">Back menu</a>
 		</div>
 	</div>
+{# Transmission des données dynamiques twig pour le fichier .js #}
 <div id="game-data" 
 	data-winner="{{ winner ? winner.getId() : 'null' }}" 
 	data-turn-player-type="{{ turn.getPlayerType()|e('js') }}" 
@@ -195,5 +196,20 @@
 	data-end-base-url="{{ path('end_index') }}" 
 	data-deck-base-url="{{ path('deck_index', {'playerId': turn.getId(), 'cardAngle': cardAngle}) }}">
 </div>
+{# Préchargement des images pour éviter qu'elles saccadent #}
+<script>
+	const images = [
+	{% for color in ['red','yellow','blue','green'] %}
+			{% for i in 0..12 %}
+			"{{ asset('images/cards/' ~ color ~ '_' ~ i ~ '.webp') }}",
+			{% endfor %}
+	{% endfor %}
+	];
+
+	images.forEach(src => {
+			const img = new Image();
+			img.src = src;
+	});
+</script>
 <script src="{{ asset('scripts/play.js') }}"></script>
 {% endblock %}

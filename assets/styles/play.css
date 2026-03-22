@@ -66,11 +66,35 @@
     width: 8.5rem;
     height: 8.5rem;
     position: absolute;
-    border: 0.3rem solid red;
+    border: 0.3rem solid;
     border-radius: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    &.red {
+        border-color: #823535;
+        .arrow {
+            background-color: #823535;
+        }
+    }
+    &.blue {
+        border-color: #353f82;
+        .arrow {
+            background-color: #353f82;
+        }
+    }
+    &.green {
+        border-color: #266b45;
+        .arrow {
+            background-color: #266b45;
+        }
+    }
+    &.yellow {
+        border-color: #b19a41;
+        .arrow {
+            background-color: #b19a41;
+        }
+    }
     .arrow-container {
         width: 100%;
         height: 100%;
@@ -93,7 +117,6 @@
         height: 2rem;
         position: absolute;
         bottom: calc(100% + 1rem);
-        background-color: red;
         clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     }
     .accumuation-counter {
@@ -101,8 +124,8 @@
         color: white;
         font-size: 2rem;
         text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.75);
-        left: calc(100% + .5rem);
-        bottom: calc(100% + .5rem);
+        left: calc(100% + 0.5rem);
+        bottom: calc(100% + 0.5rem);
     }
 }
 
@@ -143,12 +166,11 @@
             width: 100%;
             height: 100%;
             display: flex;
-            align-items: center;
             justify-content: center;
         }
         p {
-            font-size: 1.5rem;
-            color: white;
+            opacity: 0;
+            pointer-events: none;
         }
     }
     .side1 {
@@ -187,7 +209,7 @@
     height: 20rem;
     position: absolute;
     border-radius: 50%;
-    opacity: .25;
+    opacity: 0.25;
 }
 
 .sens-normal {
@@ -196,7 +218,6 @@
 .sens-inverse {
     border: 2rem solid rgba(0, 55, 255, 0.25);
 }
-
 
 .card {
     width: 4rem;
@@ -249,19 +270,6 @@
 .card-back {
     background: url(../images/cards/back.webp) center/cover;
     transform: rotateY(180deg);
-}
-
-.card-yellow {
-    background-color: rgb(241, 219, 21);
-}
-.card-blue {
-    background-color: rgb(68, 134, 215);
-}
-.card-red {
-    background-color: rgb(230, 46, 46);
-}
-.card-green {
-    background-color: rgb(44, 157, 44);
 }
 
 .infos {

@@ -163,7 +163,7 @@ class StartService
     }
 
     // Réinitialiser les données de jeu
-    $this->distributeCards(2);
+    $this->distributeCards(7);
     $this->session->set('discard', [$this->getFirstCard()]);
     $this->session->set('deck', $this->deck);
     $this->session->set('turn', $this->getFirstTurn());

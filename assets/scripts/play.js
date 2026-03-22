@@ -174,20 +174,17 @@ document.addEventListener("turbo:load", () => {
         );
         const enemyElement = document.querySelector(`#enemy-cards${turnId}`);
         const card = enemyElement.querySelector(`#card-${enemyCardPlayed}`);
-        const cardNumber = card.querySelector(".card-front p").textContent;
-        const cardClassColor = card.querySelector(".card-front").classList[1];
+        const cardImgSrc = card.querySelector(".card-front img").src;
         const animationCard = document.createElement("div");
         const gamePlayers = document.querySelector(".game-players");
         animationCard.innerHTML += `
         <div class="card-inner">
-            <div class="card-front ${cardClassColor}">
-                <p>
-                    ${cardNumber}
-                </p>
+            <div class="card-front">
+                <img class="card-img" src="${cardImgSrc}" alt="">
             </div>
             <div class="card-back"></div>
         </div>
-    `;
+        `;
         const cardInner = animationCard.querySelector(".card-inner");
         animationCard.classList.add("card");
 
@@ -195,11 +192,11 @@ document.addEventListener("turbo:load", () => {
             gamePlayers.getBoundingClientRect().width / 2 -
             enemyElement.getBoundingClientRect().left -
             enemyElement.getBoundingClientRect().width / 2 -
-            24;
+            26;
         const enemyElementCenterDeltaY =
             gamePlayers.getBoundingClientRect().height / 2 -
             enemyElement.getBoundingClientRect().top -
-            enemyElement.getBoundingClientRect().height / 2;
+            enemyElement.getBoundingClientRect().height / 2 - 2;
 
         let transform = `translate3d(${-enemyElementCenterDeltaX}px, ${-enemyElementCenterDeltaY}px, 0)`;
         let finalTransform;
