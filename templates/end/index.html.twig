@@ -7,9 +7,11 @@
 	<link rel="stylesheet" href="{{ asset('styles/end.css') }}">
 	<div class="end-wrapper">
 		<div class="end-button">
+			{# On relance une partie avec les mêmes joueurs #}
 			<a href="{{ path('start_index')}}" class="button">
 				Lancer une nouvelle partie
 			</a>
+			{# On retourne à l'accueil et les joueurs en mémoire en sont supprimés #}
 			<a href="{{ path('home_index')}}" class="button">
 				Revenir à l'accueil
 			</a>
