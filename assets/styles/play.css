@@ -12,17 +12,34 @@
     width: 100vw;
     height: 100vh;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 1rem;
+    left: 1rem;
     pointer-events: none;
+    display: flex;
+    gap: 1rem;
+    a {
+        flex-shrink: 0;
+    }
 }
 
 .button {
     pointer-events: all;
+    background: linear-gradient(90deg, #e15050, #ae2626);
+    color: white;
+    width: 3rem;
+    height: 3rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+        background: linear-gradient(90deg, #fd6e6e, #d03232);
+    }
 }
 
 .actual-turn {
-    filter: drop-shadow(0 0 0.75rem rgb(11, 201, 175));
+    filter: drop-shadow(0 0 0.75rem rgb(234, 157, 255));
 }
 
 .finish {
@@ -30,7 +47,6 @@
 }
 
 .game-board {
-    background-color: rgb(255, 175, 175);
     width: 100vw;
     height: 135vh;
     position: absolute;
@@ -63,36 +79,53 @@
 }
 
 .accumulation {
-    width: 8.5rem;
-    height: 8.5rem;
+    width: 9rem;
+    height: 9rem;
     position: absolute;
-    border: 0.3rem solid;
+    border: 0.2rem solid;
+    outline: 0.2rem solid;
     border-radius: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     &.red {
         border-color: #823535;
+        outline-color: #e15b5b;
         .arrow {
             background-color: #823535;
+        }
+        .accumuation-counter {
+            color: #e15b5b;
         }
     }
     &.blue {
         border-color: #353f82;
+        outline-color: #5a6bd8;
         .arrow {
             background-color: #353f82;
+        }
+        .accumuation-counter {
+            color: #5a6bd8;
         }
     }
     &.green {
         border-color: #266b45;
+        outline-color: #45bc7b;
         .arrow {
             background-color: #266b45;
+        }
+        .accumuation-counter {
+            color: #45bc7b;
         }
     }
     &.yellow {
         border-color: #b19a41;
+        outline-color: #f2d667;
         .arrow {
             background-color: #b19a41;
+        }
+        .accumuation-counter {
+            color: #f2d667;
         }
     }
     .arrow-container {
@@ -113,7 +146,7 @@
         }
     }
     .arrow {
-        width: 2rem;
+        width: 1.5rem;
         height: 2rem;
         position: absolute;
         bottom: calc(100% + 1rem);
@@ -121,11 +154,10 @@
     }
     .accumuation-counter {
         position: absolute;
-        color: white;
         font-size: 2rem;
-        text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.75);
         left: calc(100% + 0.5rem);
         bottom: calc(100% + 0.5rem);
+        text-shadow: 1px 1px 0px #ffffff;
     }
 }
 
@@ -141,13 +173,13 @@
     transition: box-shadow 0.3s ease-in-out;
     border-radius: 1.25rem 0.45rem 1.25rem 0.45rem;
     &.can-hover:hover {
-        box-shadow: 0 0 1rem rgba(11, 201, 175, 0.75);
+        box-shadow: 0 0 1rem rgb(199, 255, 240);
         .top {
             cursor: pointer;
         }
     }
     &.must-pick {
-        box-shadow: 0 0 1rem rgb(228, 27, 27);
+        box-shadow: 0 0 1rem rgb(255, 106, 106);
         .top {
             cursor: pointer;
         }
@@ -226,11 +258,13 @@
     align-items: center;
     justify-content: center;
     transform-style: preserve-3d;
+    border-radius: 0.6rem;
 }
 
 .card-img {
     width: 100%;
     height: 100%;
+    pointer-events: none;
 }
 
 .card-inner {
@@ -281,20 +315,29 @@
         width: 4rem;
         height: 4rem;
         background-color: blue;
+        border: 0.2rem solid white;
+        outline: 0.1rem solid rgb(176, 176, 176);
+        border-radius: 0.5rem;
     }
 }
 
 .player-identity {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 0.5rem;
-    width: 6rem;
+    width: 5rem;
     p {
-        background-color: white;
-        width: 100%;
-        padding: 0.25rem;
-        width: 7rem;
+        font-weight: bold;
+        font-size: 0.9rem;
+        background: linear-gradient(
+            90deg,
+            rgb(234, 241, 255) 60%,
+            rgba(234, 241, 255, 0)
+        );
+        border-radius: 0.75rem 0 0 0.75rem;
+        padding: 0.25rem 0 0.25rem 0.5rem;
+        width: 8rem;
+        margin-left: -1rem;
     }
 }
 
@@ -308,6 +351,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 0.35rem;
+    font-weight: bold;
+    outline: 0.08rem solid rgb(176, 176, 176);
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
 }
 
 .game-players {
@@ -362,7 +409,7 @@
             margin: 0 -1.2rem;
         }
         .infos {
-            left: 100%;
+            left: calc(100% + 2rem);
             bottom: 20%;
         }
     }
@@ -370,7 +417,7 @@
         right: 0;
         transform: translateY(2rem);
         .infos {
-            right: -4rem;
+            right: -3rem;
             bottom: calc(100% + 4rem);
         }
     }
@@ -463,16 +510,15 @@
 .user-card {
     width: fit-content;
     height: fit-content;
-    transition:
-        transform 0.3s ease-in-out,
-        box-shadow 0.3s ease-in-out;
-    border-radius: 0.45rem;
+
     filter: brightness(0.65);
     display: flex;
     align-items: center;
     justify-content: center;
     .card {
-        transition: transform 0.3s ease-in-out;
+        transition:
+            transform 0.3s ease-in-out,
+            box-shadow 0.3s ease-in-out;
     }
     &.can-play:not(.user-card-played) {
         filter: brightness(1);
@@ -480,7 +526,7 @@
         .card {
             &:hover {
                 transform: translateY(-2rem) translateX(-0.6rem);
-                box-shadow: 0 0 1rem rgba(11, 201, 175, 0.75);
+                box-shadow: 0 0 1rem rgb(199, 255, 240);
             }
         }
     }

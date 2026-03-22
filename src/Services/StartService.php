@@ -69,38 +69,41 @@ class StartService
     return $enemies;
   }
 
-  // Crée les joueurs
-  private function createPlayers($maxPlayers, $enemies, $currentPlayers)
+  // Crée les joueurs s'ils n'existent pas
+  private function createPlayers($maxPlayers, $enemies)
   {
-    if (count($currentPlayers) === 0) {
-      // Ajouter le joueur utilisateur en premier
-      $players = [];
-      $user = new PlayerModel(0, 'user', 'Vous', 'urlJoueur');
-      $players[] = $user;
+    // Ajouter le joueur utilisateur en premier
+    $players = [];
+    $user = new PlayerModel(0, 'user', 'Vous', 'urlJoueur');
+    $players[] = $user;
 
-      // Créer des numéros d'ordinateurs aléatoires (pour créer un semblant de ce n'est pas toujours le "même" ordre)
-      $enemyNumbers = [];
-      for ($i = 1; $i < $maxPlayers; $i++) {
-        $enemyNumbers[] = $i;
-      }
-
-      // Créer les ordinateurs
-      for ($i = 0; $i < count($enemies); $i++) {
-        $randomId = array_rand($enemyNumbers);
-        $enemy = new PlayerModel($i + 1, 'enemy', $enemies[$i]['name'], $enemies[$i]['img']);
-        array_splice($enemyNumbers, $randomId, 1);
-        $players[] = $enemy;
-      }
-      $this->players = $players;
-    } else {
-      $allPlayers = $currentPlayers;
-      $newPlayers = [array_shift($allPlayers)];
-      shuffle($allPlayers);
-      foreach ($allPlayers as $enemy) {
-        $newPlayers[] = $enemy;
-      }
-      $this->players = $newPlayers;
+    // Créer des numéros d'ordinateurs aléatoires (pour créer un semblant de ce n'est pas toujours le "même" ordre)
+    $enemyNumbers = [];
+    for ($i = 1; $i < $maxPlayers; $i++) {
+      $enemyNumbers[] = $i;
     }
+
+    // Créer les ordinateurs
+    for ($i = 0; $i < count($enemies); $i++) {
+      $randomId = array_rand($enemyNumbers);
+      $enemy = new PlayerModel($i + 1, 'enemy', $enemies[$i]['name'], $enemies[$i]['img']);
+      array_splice($enemyNumbers, $randomId, 1);
+      $players[] = $enemy;
+    }
+    $this->players = $players;
+    $this->session->set('players', $this->players);
+  }
+
+  // Mélanger l'ordre des joueurs existants si ils existent déjà quand on reset la partie
+  private function mixCurrentPlayers($players)
+  {
+    $allPlayers = $players;
+    $newPlayers = [array_shift($allPlayers)];
+    shuffle($allPlayers);
+    foreach ($allPlayers as $enemy) {
+      $newPlayers[] = $enemy;
+    }
+    $this->players = $newPlayers;
     $this->session->set('players', $this->players);
   }
 
@@ -160,6 +163,9 @@ class StartService
     if (empty($this->players)) {
       // Si les joueurs n'existent pas, les créer
       $this->createPlayers(4, $this->enemyData($this->allEnemies), []);
+    } else {
+      // Sinon les mélanger
+      $this->mixCurrentPlayers($this->players);
     }
 
     // Réinitialiser les données de jeu

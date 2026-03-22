@@ -4,11 +4,12 @@
 {% endblock %}
 
 {% block body %}
-<div>
-<h1>Accueil</h1>
-<a href="{{ path('start_index') }}">Jouer</a>
-</div>
-	 <script>
-
-    </script>
+	<link rel="stylesheet" href="{{ asset('styles/home.css') }}">
+	<div class="home-wrapper">
+		<img class="logo" src="{{ asset('images/uno.webp') }}" alt="">
+		<a href="{{ path('start_index') }}" class="button">Jouer</a>
+		<p class="author">
+			<small>par Magali MAI</small>
+		</p>
+	</div>
 {% endblock %}

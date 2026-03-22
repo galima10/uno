@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-
+	<link rel="stylesheet" href="{{ asset('styles/end.css') }}">
 	<div>
 		<h1>Win de
 			{{ winner.getName() }}</h1>
@@ -24,8 +24,16 @@
 				</li>
 			{% endfor %}
 		</ul>
-		<a href="{{ path('start_index') }}">Lancer une nouvelle partie</a>
-        <a href="{{ path('home_index') }}">Revenir à l'accueil</a>
+		<div class="end-button">
+			<a href="{{ path('start_index')}}" class="button">
+				Lancer une nouvelle partie
+				<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 414 414"><path fill="#fff" fill-rule="evenodd" d="m43 178-3 29" clip-rule="evenodd"/><path fill="#fff" d="M411 244A207 207 0 0 0 78 45l5-20Q87 9 71 1h-2l-2-1c-9-1-19 4-22 13l-1 2-17 65c-3 11 3 22 14 25l65 18a20 20 0 0 0 11-39l-17-5a167 167 0 0 1 274 128l-3 30a20 20 0 0 0 32 20q6-6 8-13"/><path fill="#fff" fill-rule="evenodd" d="M40 207a167 167 0 0 0 274 128l-17-5a20 20 0 0 1 11-39l65 18q16 6 15 23l-1 2-17 65a20 20 0 0 1-39-10l5-20A207 207 0 0 1 3 170l1-2q1-6 7-11t18-3q16 6 14 23v4c-2 8-3 14-3 26" clip-rule="evenodd"/></svg>
+			</a>
+			<a href="{{ path('home_index')}}" class="button">
+				Revenir à l'accueil
+				<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 700 700"><path fill="#fff" d="M0 300v450h250V550a100 100 0 1 1 200 0v200h250V300L350 0z"/></svg>
+			</a>
+		</div>
 	</div>
 	 <script>
 	    if (window.clearPlayTimeouts) {

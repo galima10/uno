@@ -12,24 +12,64 @@ class Enemies
   {
     $enemies = [
       [
-        'name' => 'Ordinateur 1',
-        'img' => 'url1',
+        'name' => 'Lucas',
+        'img' => 'img1',
       ],
       [
-        'name' => 'Ordinateur 2',
-        'img' => 'url2',
+        'name' => 'Emma',
+        'img' => 'img2',
       ],
       [
-        'name' => 'Ordinateur 3',
-        'img' => 'url3',
+        'name' => 'Noah',
+        'img' => 'img3',
       ],
       [
-        'name' => 'Ordinateur 4',
-        'img' => 'url4',
+        'name' => 'Léa',
+        'img' => 'img4',
       ],
       [
-        'name' => 'Ordinateur 5',
-        'img' => 'url5',
+        'name' => 'Hugo',
+        'img' => 'img5',
+      ],
+      [
+        'name' => 'Jade',
+        'img' => 'img6',
+      ],
+      [
+        'name' => 'Louis',
+        'img' => 'img7',
+      ],
+      [
+        'name' => 'Chloé',
+        'img' => 'img8',
+      ],
+      [
+        'name' => 'Nathan',
+        'img' => 'img9',
+      ],
+      [
+        'name' => 'Manon',
+        'img' => 'img10',
+      ],
+      [
+        'name' => 'Enzo',
+        'img' => 'img11',
+      ],
+      [
+        'name' => 'Camille',
+        'img' => 'img12',
+      ],
+      [
+        'name' => 'Gabriel',
+        'img' => 'img13',
+      ],
+      [
+        'name' => 'Sarah',
+        'img' => 'img14',
+      ],
+      [
+        'name' => 'Mathis',
+        'img' => 'img15',
       ],
     ];
     return $enemies;

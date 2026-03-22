@@ -1,0 +1,39 @@
+.home-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+}
+
+.button {
+    pointer-events: all;
+    background: linear-gradient(90deg, #e15050, #ae2626);
+    color: white;
+    padding: .5rem 3.5rem;
+    font-weight: bold;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    box-shadow: 2px 2px 1rem rgba(0, 0, 0, .5);
+    &:hover {
+        background: linear-gradient(90deg, #fd6e6e, #d03232);
+    }
+}
+
+.logo {
+  width: 25rem;
+  margin-bottom: 5rem;
+  pointer-events: none;
+}
+
+.author {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+}
