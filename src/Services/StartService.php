@@ -117,6 +117,8 @@ class StartService
       return $this->getFirstCard();
     }
 
+    $firstCard->setAngle(0);
+
     return $firstCard;
   }
 
@@ -149,5 +151,6 @@ class StartService
     $this->session->set('accumulation', 0);
     $this->session->set('sens', 1);
     $this->session->set('winner', null);
+    $this->session->set('actualCardAngle', null);
   }
 }

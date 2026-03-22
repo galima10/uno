@@ -13,6 +13,6 @@ final class StartController extends AbstractController
     public function index(StartService $startService): Response
     {
         $startService->initGame();
-        return $this->redirectToRoute('play_index');
+        return $this->render('start/index.html.twig');
     }
 }

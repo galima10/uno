@@ -7,6 +7,9 @@ class CardModel {
   private string $color;
   private int $number;
 
+  // Ajout d'un angle pour l'UI
+  private int $angle;
+
   public function __construct($newId,$newNumber, $newColor)
   {
     $this->setId($newId);
@@ -26,6 +29,10 @@ class CardModel {
     if (is_string($newColor) && in_array($newColor, ['red', 'yellow', 'blue', 'green'])) $this->color = $newColor;
   }
 
+  public function setAngle($newAngle) {
+    if (is_int($newAngle)) $this->angle = $newAngle;
+  }
+
   public function getId() {
     return $this->id;
   }
@@ -36,5 +43,9 @@ class CardModel {
 
   public function getColor() {
     return $this->color;
+  }
+
+  public function getAngle() {
+    return $this->angle;
   }
 }

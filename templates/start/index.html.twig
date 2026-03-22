@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StartController!
+{% endblock %}
+
+{% block body %}
+	 <script>
+    //  Nettoyer les timers pour éviter une redirection en attente
+        if (window.clearPlayTimeouts) {
+		    window.clearPlayTimeouts();
+            // location.reload();
+		}
+        window.location.href = "{{ path('play_index') }}";
+    </script>
+{% endblock %}

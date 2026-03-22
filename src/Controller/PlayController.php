@@ -24,7 +24,8 @@ final class PlayController extends AbstractController
             'cardPicked' => $data['cardPicked'],
             'accumulation' => $data['accumulation'],
             'sens' => $data['sens'],
-            'winner' => $data['winner']
+            'winner' => $data['winner'],
+            'cardAngle' => $data['cardAngle'],
         ]);
     }
 

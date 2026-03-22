@@ -16,28 +16,28 @@ class PlayerService
   }
 
   // Route /user : Vérifie la carte jouée par le joueur utilisateur et met à jour le jeu
-  public function checkUserCard(int $cardId)
+  public function checkUserCard(int $cardId, int $cardAngle)
   {
     $user = $this->getCurrentPlayer('user');
     $discard = $this->getDiscard();
     $topCard = end($discard);
     $userCard = $this->getUserCard($cardId, $user);
 
-    $this->playCardIfValid($user, $topCard, $userCard, $discard);
+    $this->playCardIfValid($user, $topCard, $userCard, $discard, $cardAngle);
 
     $this->session->set('enemyCardPlayed', null);
     $this->session->set('cardPicked', false);
   }
 
   // Route /enemy : Vérifie la carte jouée par l'ordinateur et met à jour le jeu
-  public function checkEnemyCard(int $enemyId)
+  public function checkEnemyCard(int $enemyId, int $cardAngle)
   {
     $enemyCard = $this->session->get('enemyCardPlayed');
     $enemy = $this->getCurrentEnemy($enemyId);
     $discard = $this->getDiscard();
     $topCard = end($discard);
 
-    $this->playCardIfValid($enemy, $topCard, $enemyCard, $discard);
+    $this->playCardIfValid($enemy, $topCard, $enemyCard, $discard, $cardAngle);
 
     $this->session->set('enemyCardPlayed', null);
     $this->session->set('cardPicked', false);
@@ -111,20 +111,29 @@ class PlayerService
   }
 
   // Met à jour la main et la défausse une fois la carte jouée
-  private function updatePlayerCards($player, $currentCard, $discard)
+  private function updatePlayerCards($player, $currentCard, $discard, $cardAngle)
   {
     $userCards = $player->getCards();
 
     $userCards = array_filter($userCards, fn($card) => $card->getId() !== $currentCard->getId());
     $player->setCards($userCards);
-
+    $currentCard->setAngle(0);
+    if ($player->getId() === 0) {
+      $currentCard->setAngle($cardAngle);
+    } else if ($player->getId() === 1) {
+      $currentCard->setAngle(90 + $cardAngle);
+    } else if ($player->getId() === 2) {
+      $currentCard->setAngle(180 + $cardAngle);
+    } else {
+      $currentCard->setAngle(270 + $cardAngle);
+    }
     $discard[] = $currentCard;
 
     $this->session->set('discard', $discard);
   }
 
   // Vérifie la carte jouée (si elle est valide et si elle est une carte spéciale)
-  private function playCardIfValid($player, $topCard, $currentCard, $discard)
+  private function playCardIfValid($player, $topCard, $currentCard, $discard, $cardAngle)
   {
     if (!$currentCard) {
       throw new \RuntimeException('La carte est introuvable.');
@@ -137,7 +146,7 @@ class PlayerService
     if ($accumulation > 0) {
       // La carte jouée ne peut être qu'un autre +2 sur la dernière carte de la pile de défausse, si cette dernière est un +2
       if ($topCard->getNumber() === 12 && $currentCard && ($topCard->getNumber() === $currentCard->getNumber())) {
-        $this->updatePlayerCards($player, $currentCard, $discard);
+        $this->updatePlayerCards($player, $currentCard, $discard, $cardAngle);
       } else {
         throw new \RuntimeException('La carte est invalide.');
       }
@@ -146,7 +155,7 @@ class PlayerService
     else {
       // La carte jouée peut être soit le même nombre que la dernière carte de la pile de défausse ou la même couleur
       if ($currentCard && ($topCard->getColor() === $currentCard->getColor() || $topCard->getNumber() === $currentCard->getNumber())) {
-        $this->updatePlayerCards($player, $currentCard, $discard);
+        $this->updatePlayerCards($player, $currentCard, $discard, $cardAngle);
       } else {
         throw new \RuntimeException('La carte est invalide.');
       }

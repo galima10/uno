@@ -36,6 +36,8 @@ class PlayService
     $this->sens = $this->session->get('sens');
     $this->topDiscardCard = end($this->discard);
     $this->resolveTurn($this->turn, $this->topDiscardCard, $this->cardPicked);
+    $cardAngle = $this->setRandomAngleByPlayer($this->turn, $this->topDiscardCard);
+    $this->session->set('actualCardAngle', $cardAngle);
 
     return [
       'deck' => $this->deck,
@@ -47,8 +49,15 @@ class PlayService
       'cardPicked' => $this->cardPicked,
       'accumulation' => $this->accumulation,
       'sens' => $this->sens,
-      'winner' => $this->checkWinner($this->players)
+      'winner' => $this->checkWinner($this->players),
+      'cardAngle' => $cardAngle,
     ];
+  }
+
+  private function setRandomAngleByPlayer($turn, $topDiscardCard)
+  {
+    $randomAngle = rand(-5, 5) * 2;
+    return $randomAngle;
   }
 
   // On regarde si il y a un gagnant (si un joueur n'a plus de cartes)
