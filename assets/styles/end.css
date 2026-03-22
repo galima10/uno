@@ -6,9 +6,10 @@
     justify-content: center;
     width: 100vw;
     height: 100vh;
+    padding-top: 6rem;
     padding-bottom: 4rem;
     h1 {
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
         font-size: 3rem;
     }
 }
