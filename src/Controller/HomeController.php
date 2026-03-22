@@ -13,6 +13,7 @@ final class HomeController extends AbstractController
     public function index(SessionInterface $session): Response
     {
         $session->set('globalLeaderBoard', []);
+        $session->set('players', []);
         return $this->render('home/index.html.twig');
     }
 }

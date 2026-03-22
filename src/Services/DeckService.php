@@ -82,14 +82,8 @@ class DeckService
     $this->session->set('discard', $onlyTopDiscardCard);
 
     // On mélange la nouvelle pioche
-    $deck = $discard;
-    $mixDeck = [];
-
-    for ($i = 0; $i < count($discard); $i++) {
-      $randomIndex = array_rand($deck);
-      $mixDeck[] = $deck[$randomIndex];
-      array_splice($deck, $randomIndex, 1);
-    }
+    $mixDeck = $discard;
+    shuffle($mixDeck);
 
     return $mixDeck;
   }

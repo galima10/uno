@@ -4,12 +4,11 @@
 {% endblock %}
 
 {% block body %}
-<a href="{{ path('play_index') }}">Start</a>
 	 <script>
     //  Nettoyer les timers pour éviter une redirection en attente
         if (window.clearPlayTimeouts) {
 		    window.clearPlayTimeouts();
 		}
-        // window.location.href = "{{ path('play_index') }}";
+        window.location.href = "{{ path('play_index') }}";
     </script>
 {% endblock %}

@@ -52,22 +52,16 @@ class StartService
   // Mélange la pioche
   private function mixDeck()
   {
-    $deck = $this->deck;
-    $mixDeck = [];
-
-    for ($i = 0; $i < count($this->deck); $i++) {
-      $randomIndex = array_rand($deck);
-      $mixDeck[] = $deck[$randomIndex];
-      array_splice($deck, $randomIndex, 1);
-    }
-
+    $mixDeck = $this->deck;
+    shuffle($mixDeck);
     $this->deck = $mixDeck;
   }
 
-  private function enemyData($allEnemies) {
+  private function enemyData($allEnemies)
+  {
     $currentAllEnemies = $allEnemies;
     $enemies = [];
-    for ($i = 0 ; $i < 3 ; $i++) {
+    for ($i = 0; $i < 3; $i++) {
       $randomIndex = array_rand($currentAllEnemies);
       $enemies[] = $currentAllEnemies[$randomIndex];
       array_splice($currentAllEnemies, $randomIndex, 1);
@@ -76,28 +70,38 @@ class StartService
   }
 
   // Crée les joueurs
-  private function createPlayers($maxPlayers, $enemies)
+  private function createPlayers($maxPlayers, $enemies, $currentPlayers)
   {
-    // Ajouter le joueur utilisateur en premier
-    $players = [];
-    $user = new PlayerModel(0, 'user', 'Vous', 'urlJoueur');
-    $players[] = $user;
+    if (count($currentPlayers) === 0) {
+      // Ajouter le joueur utilisateur en premier
+      $players = [];
+      $user = new PlayerModel(0, 'user', 'Vous', 'urlJoueur');
+      $players[] = $user;
 
-    // Créer des numéros d'ordinateurs aléatoires (pour créer un semblant de ce n'est pas toujours le "même" ordre)
-    $enemyNumbers = [];
-    for ($i = 1; $i < $maxPlayers; $i++) {
-      $enemyNumbers[] = $i;
-    }
-    
-    // Créer les ordinateurs
-    for ($i = 0; $i < count($enemies); $i++) {
-      $randomId = array_rand($enemyNumbers);
-      $enemy = new PlayerModel($i + 1, 'enemy', $enemies[$i]['name'], $enemies[$i]['img']);
-      array_splice($enemyNumbers, $randomId, 1);
-      $players[] = $enemy;
-    }
+      // Créer des numéros d'ordinateurs aléatoires (pour créer un semblant de ce n'est pas toujours le "même" ordre)
+      $enemyNumbers = [];
+      for ($i = 1; $i < $maxPlayers; $i++) {
+        $enemyNumbers[] = $i;
+      }
 
-    $this->players = $players;
+      // Créer les ordinateurs
+      for ($i = 0; $i < count($enemies); $i++) {
+        $randomId = array_rand($enemyNumbers);
+        $enemy = new PlayerModel($i + 1, 'enemy', $enemies[$i]['name'], $enemies[$i]['img']);
+        array_splice($enemyNumbers, $randomId, 1);
+        $players[] = $enemy;
+      }
+      $this->players = $players;
+    } else {
+      $allPlayers = $currentPlayers;
+      $newPlayers = [array_shift($allPlayers)];
+      shuffle($allPlayers);
+      foreach ($allPlayers as $enemy) {
+        $newPlayers[] = $enemy;
+      }
+      $this->players = $newPlayers;
+    }
+    $this->session->set('players', $this->players);
   }
 
   // Distribue les cartes aux joueurs
@@ -151,12 +155,12 @@ class StartService
     $this->createDeck();
     $this->mixDeck();
 
+    $this->players = $this->session->get('players');
     // Création de 4 joueurs auxquels on distribue 7 cartes chacun
-    $this->createPlayers(4, $this->enemyData($this->allEnemies));
+    $this->createPlayers(4, $this->enemyData($this->allEnemies), $this->players);
     $this->distributeCards(7);
 
-    $this->session->set('players', $this->players);
-    // $this->session->set('discard', [$this->getFirstCard(), $this->getFirstCard()]);
+    // $this->session->set('players', $this->players);
     $this->session->set('discard', [$this->getFirstCard()]);
     $this->session->set('deck', $this->deck);
     $this->session->set('turn', $this->getFirstTurn());
