@@ -56,7 +56,22 @@
 				</button>
 				<div class="side2"></div>
 			</div>
-			<div class="sens-information sens-{% if sens === -1 %}inverse{% else %}normal{% endif %}"></div>
+			<div class="sens-information">
+				{% if sens === -1 %}
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" width="327" height="327" fill="none" viewBox="0 0 327 327">
+							<path fill="#fff" fill-rule="evenodd" d="M164 311q51-1 89-30l-21-4 44-18q34-40 35-95A148 148 0 0 0 73 47l22 4-46 19q-31 39-33 94c0 81 66 147 148 147m104 2 17-40q41-45 42-109A163 163 0 0 0 63 35l-4-20-16 38Q1 98 0 164a163 163 0 0 0 264 128z" clip-rule="evenodd"/>
+						</svg>
+					</div>
+				{% else %}
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" width="327" height="327" fill="none" viewBox="0 0 327 327">
+							<path fill="#fff" d="M327 164q-1-66-43-111l-16-38-4 20Q222 1 164 0A163 163 0 0 0 42 273l17 40 4-21q43 34 101 35c90 0 163-73 163-163m-49-94q32 39 33 94A148 148 0 0 1 74 281l21-4-44-18q-34-40-35-95A148 148 0 0 1 254 47l-22 4z"/>
+						</svg>
+					</div>
+				{% endif %}
+				
+			</div>
 		</div>
 		<div class="game-players">
 			<ul class="all-players">
