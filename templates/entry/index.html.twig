@@ -4,7 +4,9 @@
 {% endblock %}
 
 {% block body %}
-	<div class="end-wrapper">
+	{# Wrapper de toute l'app pour éviter que l'audio ne se coupe à cause des rechargements et des redirections des pages #}
+	<div>
+		{# Balises pour l'audio en fond #}
 		<audio id="background-music" src="{{ asset('audio/roi.mp3') }}" autoplay loop muted></audio>
 		<audio id="background-card" src=""></audio>
 
@@ -18,8 +20,10 @@
 		</div>
 
 	</div>
+	{# Définition des chemins des fichiers audios #}
 	{% set audioFiles = {
-    'astrid': 'astrid.mp3',
+    'start': 'roi.mp3',
+    'game': 'astrid.mp3',
     'card': 'card.mp3',
 	} %}
 	<script>
@@ -52,14 +56,18 @@
 		window.addEventListener('message', (event) => {
 				if (event.data && event.data.audioSource) {
 						const path = audioMap[event.data.audioSource];
-						console.log(path)
-						if (!path) return;
 
 						if (event.data.target === "music") {
+							if (event.data.audioSource === "coupé") {
+								audio.src = "";
+							} else {
+								if (!path) return;
 								audio.src = path;
 								if (event.data.loop !== undefined) audio.loop = event.data.loop;
 								audio.play().catch(err => console.error("Erreur musique :", err));
+							}
 						} else if (event.data.target === "card") {
+							if (!path) return;
 								card.src = path;
 								card.play().catch(err => console.error("Erreur son carte :", err));
 						}

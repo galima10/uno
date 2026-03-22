@@ -5,6 +5,15 @@
 
 {% block body %}
 	 <script>
+    //  Lancement de la musique de jeu
+     window.parent.postMessage(
+        {
+            target: "music",
+            audioSource: "game",
+            loop: true,
+        },
+        "*",
+    );
     //  Nettoyer les timers pour éviter une redirection en attente
         if (window.clearPlayTimeouts) {
 		    window.clearPlayTimeouts();

@@ -18,6 +18,14 @@
 		</p>
 	</div>
     <script>
+    window.parent.postMessage(
+        {
+            target: "music",
+            audioSource: "start",
+            loop: true,
+        },
+        "*",
+    );
     //  Nettoyer les timers pour éviter une redirection en attente
         if (window.clearPlayTimeouts) {
 		    window.clearPlayTimeouts();

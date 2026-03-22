@@ -149,8 +149,7 @@ class StartService
   private function getFirstTurn()
   {
     $randomIndex = array_rand($this->players);
-    // return $this->players[$randomIndex];
-    return $this->players[0];
+    return $this->players[$randomIndex];
   }
 
   // Lance le jeu et stock les infos en session
@@ -171,7 +170,7 @@ class StartService
     }
 
     // Distribuer les cartes
-    $this->distributeCards(7);
+    $this->distributeCards(1);
 
     // Réinitialiser les données de jeu
     $this->session->set('discard', [$this->getFirstCard()]);
