@@ -3,8 +3,6 @@
 {% block title %}Chargement de la partie
 {% endblock %}
 
-{% block title %}Chargement de la partie{% endblock %}
-
 {% block body %}
 <div>
     <h1 style="color: white; margin-top: 3rem; margin-left: 3rem; font-size: 1.5rem">Chargement des cartes...</h1>
@@ -23,7 +21,7 @@
         window.clearPlayTimeouts();
     }
 
-    Préchargement des images pour éviter qu'elles saccadent
+    // Préchargement des images pour éviter qu'elles saccadent
     // liste des images
     const images = [
     {% for color in ['red','yellow','blue','green'] %}
@@ -33,12 +31,12 @@
     {% endfor %}
 
     {% set players = [
-        'lucas','emma','noah','lea','hugo','jade','louis','chloe',
-        'nathan','manon','enzo','camille','gabriel','sarah','mathis'
+    'lucas','emma','noah','lea','hugo','jade','louis','chloe',
+    'nathan','manon','enzo','camille','gabriel','sarah','mathis'
     ] %}
 
     {% for player in players %}
-        "{{ asset('images/players/' ~ player ~ '.webp') }}",
+        "{{ asset('images/players/' ~ player ~ '.webp') }}"{% if not loop.last %},{% endif %}
     {% endfor %}
     ];
 
