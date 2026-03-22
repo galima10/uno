@@ -43,11 +43,20 @@
 			</div>
 			{% set playable = false %}
 			{% for card in players[0].getCards() %}
-					{% if topDiscardCard.getNumber() == card.getNumber()
-							or topDiscardCard.getColor() == card.getColor() %}
-							{% set playable = true %}
+					{% if topDiscardCard.getNumber() === 12 %}
+						{% if topDiscardCard.getNumber() == card.getNumber()%}
+								{% set playable = true %}
+						{% endif %}
+					{% else %}
+						{% if topDiscardCard.getNumber() == card.getNumber()
+								or topDiscardCard.getColor() == card.getColor() %}
+								{% set playable = true %}
+						{% endif %}
 					{% endif %}
 			{% endfor %}
+			{% if players[0].getCards()|length == 0 %}
+					{% set noPlayable = false %}
+			{% endif %}
 			<div class="deck {% if turn.getPlayerType() === 'user' and cardPicked === false %}{{ not playable ? 'must-pick' }} can-hover{% endif %}">
 				<div class="side1"></div>
 				<button class="top" id="deck">
@@ -75,7 +84,7 @@
 						{% for card in players[0].getCards() %}
 							<li>
 								<button class="user-card
-								{% if turn.getPlayerType() === 'user' %}
+								{% if turn.getPlayerType() === 'user' and winner === null %}
 									{% if accumulation > 0 %}
 										{% if topDiscardCard.getNumber() === 12 and topDiscardCard.getNumber() === card.getNumber() %}
 											can-play user-card-not-played
@@ -232,6 +241,7 @@
 	data-card-angle="{{ cardAngle ? cardAngle : 0 }}" 
 	data-user-base-url="{{ turn.getPlayerType() === 'user' ? path('user_index', {'cardId': 100, 'cardAngle': 10}) : '' }}" 
 	data-enemy-base-url="{{ turn.getPlayerType() === 'enemy' ? path('enemy_index', {'enemyId': turn.getId(), 'cardAngle': 10}) : '' }}" 
+	data-end-base-url="{{ path('end_index') }}" 
 	data-deck-base-url="{{ path('deck_index', {'playerId': turn.getId(), 'cardAngle': cardAngle}) }}">
 </div>
 <script src="{{ asset('scripts/play.js') }}"></script>

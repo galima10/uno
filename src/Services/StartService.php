@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Model\CardModel;
 use App\Model\PlayerModel;
+use App\Model\Enemies;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -11,13 +12,15 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class StartService
 {
   private SessionInterface $session;
+  private array $allEnemies;
   private array $deck = [];
   private array $players = [];
 
   // Récupérer la session depuis le service
-  public function __construct(RequestStack $requestStack)
+  public function __construct(RequestStack $requestStack, Enemies $enemiesData)
   {
     $this->session = $requestStack->getSession();
+    $this->allEnemies = $enemiesData->getEnemyData();
   }
 
   // Création de 100 cartes
@@ -61,12 +64,23 @@ class StartService
     $this->deck = $mixDeck;
   }
 
+  private function enemyData($allEnemies) {
+    $currentAllEnemies = $allEnemies;
+    $enemies = [];
+    for ($i = 0 ; $i < 3 ; $i++) {
+      $randomIndex = array_rand($currentAllEnemies);
+      $enemies[] = $currentAllEnemies[$randomIndex];
+      array_splice($currentAllEnemies, $randomIndex, 1);
+    }
+    return $enemies;
+  }
+
   // Crée les joueurs
-  private function createPlayers($maxPlayers)
+  private function createPlayers($maxPlayers, $enemies)
   {
     // Ajouter le joueur utilisateur en premier
     $players = [];
-    $user = new PlayerModel(0, 'user', 'Vous');
+    $user = new PlayerModel(0, 'user', 'Vous', 'urlJoueur');
     $players[] = $user;
 
     // Créer des numéros d'ordinateurs aléatoires (pour créer un semblant de ce n'est pas toujours le "même" ordre)
@@ -74,11 +88,11 @@ class StartService
     for ($i = 1; $i < $maxPlayers; $i++) {
       $enemyNumbers[] = $i;
     }
-
+    
     // Créer les ordinateurs
-    for ($i = 0; $i < $maxPlayers - 1; $i++) {
+    for ($i = 0; $i < count($enemies); $i++) {
       $randomId = array_rand($enemyNumbers);
-      $enemy = new PlayerModel($i + 1, 'enemy', 'Ordinateur ' . $enemyNumbers[$randomId]);
+      $enemy = new PlayerModel($i + 1, 'enemy', $enemies[$i]['name'], $enemies[$i]['img']);
       array_splice($enemyNumbers, $randomId, 1);
       $players[] = $enemy;
     }
@@ -138,7 +152,7 @@ class StartService
     $this->mixDeck();
 
     // Création de 4 joueurs auxquels on distribue 7 cartes chacun
-    $this->createPlayers(4);
+    $this->createPlayers(4, $this->enemyData($this->allEnemies));
     $this->distributeCards(7);
 
     $this->session->set('players', $this->players);
@@ -152,5 +166,6 @@ class StartService
     $this->session->set('sens', 1);
     $this->session->set('winner', null);
     $this->session->set('actualCardAngle', null);
+    $this->session->set('leaderBoard', []);
   }
 }

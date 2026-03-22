@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello WinController!
+{% endblock %}
+
+{% block body %}
+
+	<div>
+		<h1>Win de
+			{{ winner.getName() }}</h1>
+		<p>Classement de la partie</p>
+		<ul>
+			{% for player in actualRoundLeaderBoard %}
+				<li>
+					<p>{{ player.name }} - {{ player.score }} points</p>
+				</li>
+			{% endfor %}
+		</ul>
+		<p>Classement global</p>
+		<ul>
+			{% for player in globalLeaderBoard %}
+				<li>
+					<p>{{ player.name }} - {{ player.score }} points</p>
+				</li>
+			{% endfor %}
+		</ul>
+		<a href="{{ path('start_index') }}">Lancer une nouvelle partie</a>
+        <a href="{{ path('home_index') }}">Revenir à l'accueil</a>
+	</div>
+	 <script>
+	    if (window.clearPlayTimeouts) {
+	        window.clearPlayTimeouts();
+	    }
+	</script>
+{% endblock %}

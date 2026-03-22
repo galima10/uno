@@ -1,16 +1,16 @@
 document.addEventListener("turbo:load", () => {
     window.playTimeouts = [];
 
-    function playTimeout(fn, delay) {
+    window.playTimeout = function (fn, delay) {
         const id = setTimeout(fn, delay);
         window.playTimeouts.push(id);
         return id;
-    }
+    };
 
-    function clearPlayTimeouts() {
+    window.clearPlayTimeouts = function () {
         window.playTimeouts.forEach(clearTimeout);
         window.playTimeouts = [];
-    }
+    };
 
     const gameDataElement = document.getElementById("game-data");
     if (!gameDataElement) return;
@@ -21,6 +21,7 @@ document.addEventListener("turbo:load", () => {
     const userBaseUrl = gameData.userBaseUrl || null;
     const enemyBaseUrl = gameData.enemyBaseUrl || null;
     const deckBaseUrl = gameData.deckBaseUrl || null;
+    const endBaseUrl = gameData.endBaseUrl || null;
 
     const turnId = gameData.turnId;
     const turnPlayerType = gameData.turnPlayerType;
@@ -56,12 +57,11 @@ document.addEventListener("turbo:load", () => {
             }
         } else {
             if (cardPicked === null) {
-                console.log("peut pas jouer");
-                playTimeout(() => location.reload(), 3000);
+                playTimeout(() => location.reload(), 500);
             }
         }
     } else {
-        playTimeout(() => (window.location.href = "/win"), 3000);
+        playTimeout(() => (window.location.href = endBaseUrl), 3000);
     }
 
     if (!window.turboDeckListenerAdded) {

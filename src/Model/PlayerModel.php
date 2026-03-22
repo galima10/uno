@@ -6,13 +6,15 @@ class PlayerModel {
   private int $id;
   private string $playerType;
   private string $name;
+  private string $img;
   private array $cards = [];
 
-  public function __construct($newId, $newPlayerType, $newName)
+  public function __construct($newId, $newPlayerType, $newName, $newImg)
   {
     $this->setId($newId);
     $this->setPlayerType($newPlayerType);
     $this->setName($newName);
+    $this->setImg($newImg);
   }
 
   private function setId($newId) {
@@ -27,6 +29,10 @@ class PlayerModel {
     if (is_string($newName) && strlen($newName) > 0 && strlen($newName) <= 20) $this->name = $newName;
   }
 
+  private function setImg($newImg) {
+    if (is_string($newImg) && strlen($newImg) > 0 && strlen($newImg) <= 255) $this->img = $newImg;
+  }
+
   public function setCards($newCards) {
     if (is_array($newCards) && count($newCards) >= 0 && count($newCards) <= 100) $this->cards = $newCards;
   }
@@ -39,6 +45,9 @@ class PlayerModel {
   }
   public function getName() {
     return $this->name;
+  }
+  public function getImg() {
+    return $this->img;
   }
   public function getCards() {
     return $this->cards;
