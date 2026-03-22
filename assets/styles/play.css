@@ -257,8 +257,8 @@
 }
 
 .sens-information {
-    width: 20rem;
-    height: 20rem;
+    aspect-ratio: 1 / 1;
+    height: 40%;
     position: absolute;
     border-radius: 50%;
     opacity: 0.1;
