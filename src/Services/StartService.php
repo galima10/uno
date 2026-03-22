@@ -170,7 +170,7 @@ class StartService
     }
 
     // Distribuer les cartes
-    $this->distributeCards(1);
+    $this->distributeCards(7);
 
     // Réinitialiser les données de jeu
     $this->session->set('discard', [$this->getFirstCard()]);

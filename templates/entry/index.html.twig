@@ -7,7 +7,7 @@
 	{# Wrapper de toute l'app pour éviter que l'audio ne se coupe à cause des rechargements et des redirections des pages #}
 	<div>
 		{# Balises pour l'audio en fond #}
-		<audio id="background-music" src="{{ asset('audio/roi.mp3') }}" autoplay loop muted></audio>
+		<audio id="background-music" src="{{ asset('audio/start.mp3') }}" autoplay loop muted></audio>
 		<audio id="background-card" src=""></audio>
 
 		<!-- Iframe pour encapsuler le jeu -->
@@ -22,8 +22,8 @@
 	</div>
 	{# Définition des chemins des fichiers audios #}
 	{% set audioFiles = {
-    'start': 'roi.mp3',
-    'game': 'astrid.mp3',
+    'start': 'start.mp3',
+    'game': 'game.mp3',
     'card': 'card.mp3',
 	} %}
 	<script>
@@ -42,9 +42,9 @@
 	  // Activer l'audio lorsque l'utilisateur clique sur le bouton
 	  enableAudioButton.addEventListener('click', () => {
 	    audio.muted = false;
-	    audio.volume = .05;
+	    audio.volume = .18;
 	    card.muted = false;
-	    card.volume = .5;
+	    card.volume = .6;
 	    audio.play().then(() => {
 	      // Masquer la boîte de dialogue après activation
 	      permissionDialog.style.display = 'none';
@@ -56,16 +56,12 @@
 		window.addEventListener('message', (event) => {
 				if (event.data && event.data.audioSource) {
 						const path = audioMap[event.data.audioSource];
+						if (!path) return;
 
 						if (event.data.target === "music") {
-							if (event.data.audioSource === "coupé") {
-								audio.src = "";
-							} else {
-								if (!path) return;
-								audio.src = path;
+							audio.src = path;
 								if (event.data.loop !== undefined) audio.loop = event.data.loop;
 								audio.play().catch(err => console.error("Erreur musique :", err));
-							}
 						} else if (event.data.target === "card") {
 							if (!path) return;
 								card.src = path;
