@@ -124,7 +124,7 @@
         }
     }
     &.must-pick {
-        box-shadow: 0 0 1rem rgba(228, 27, 27, 0.75);
+        box-shadow: 0 0 1rem rgb(228, 27, 27);
         .top {
             cursor: pointer;
         }
@@ -183,8 +183,8 @@
 }
 
 .sens-information {
-    width: 24rem;
-    height: 20rem;
+    width: 40%;
+    height: 40%;
     position: absolute;
     border: 2rem solid rgba(255, 255, 255, 0.25);
     border-radius: 50%;

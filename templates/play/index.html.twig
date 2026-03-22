@@ -41,7 +41,14 @@
 					</div>
 				{% endif %}
 			</div>
-			<div class="deck {% if turn.getPlayerType() === 'user' and cardPicked === false %}{% if players[0]|length === 0 %}must-pick{% endif %} can-hover{% endif %}">
+			{% set playable = false %}
+			{% for card in players[0].getCards() %}
+					{% if topDiscardCard.getNumber() == card.getNumber()
+							or topDiscardCard.getColor() == card.getColor() %}
+							{% set playable = true %}
+					{% endif %}
+			{% endfor %}
+			<div class="deck {% if turn.getPlayerType() === 'user' and cardPicked === false %}{{ not playable ? 'must-pick' }} can-hover{% endif %}">
 				<div class="side1"></div>
 				<button class="top" id="deck">
 					<div>
