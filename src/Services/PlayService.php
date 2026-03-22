@@ -72,7 +72,10 @@ class PlayService
       }
     }
 
-    if ($winner) $this->session->set('winner', $winner);
+    if ($winner) {
+      $this->session->set('winner', $winner);
+      $this->session->set('endStatus', 'finish');
+    };
     return $winner;
   }
 

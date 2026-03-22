@@ -23,8 +23,9 @@ class EndService
 
     $players = $this->session->get('players');
     $winner = $this->session->get('winner');
+    $endStatus = $this->session->get('endStatus');
     $actualRoundLeaderBoard = $this->getActualLeaderBoard($players);
-    $globalLeaderBoard = $this->getGlobalLeaderBoard($actualRoundLeaderBoard);
+    $globalLeaderBoard = $this->getGlobalLeaderBoard($actualRoundLeaderBoard, $endStatus);
 
     return [
       'players' => $players,
@@ -34,35 +35,37 @@ class EndService
     ];
   }
 
-  private function getGlobalLeaderBoard($actualRoundLeaderBoard)
+  private function getGlobalLeaderBoard($actualRoundLeaderBoard, $endStatus)
   {
     $globalLeaderBoard = $this->session->get('globalLeaderBoard') ?? [];
 
-    if (count($globalLeaderBoard) === 0) {
-      $globalLeaderBoard = $actualRoundLeaderBoard;
-    } else {
-      // Ajoute le scrore de la partie au classement global
-      foreach ($actualRoundLeaderBoard as $roundPlayer) {
-        $found = false;
+    if ($endStatus === 'finish') {
+      if (count($globalLeaderBoard) === 0) {
+        $globalLeaderBoard = $actualRoundLeaderBoard;
+      } else {
+        // Ajoute le scrore de la partie au classement global
+        foreach ($actualRoundLeaderBoard as $roundPlayer) {
+          $found = false;
 
-        foreach ($globalLeaderBoard as &$globalPlayer) {
-          if ($globalPlayer['id'] === $roundPlayer['id']) {
-            $globalPlayer['score'] += $roundPlayer['score'];
-            $found = true;
-            break;
+          foreach ($globalLeaderBoard as &$globalPlayer) {
+            if ($globalPlayer['id'] === $roundPlayer['id']) {
+              $globalPlayer['score'] += $roundPlayer['score'];
+              $found = true;
+              break;
+            }
+          }
+
+          if (!$found) {
+            $globalLeaderBoard[] = $roundPlayer;
           }
         }
-
-        if (!$found) {
-          $globalLeaderBoard[] = $roundPlayer;
-        }
       }
+
+      usort($globalLeaderBoard, function ($a, $b) {
+        return $b['score'] <=> $a['score'];
+      });
+      $this->session->set('endStatus', null);
     }
-
-    usort($globalLeaderBoard, function ($a, $b) {
-      return $b['score'] <=> $a['score'];
-    });
-
     $this->session->set('globalLeaderBoard', $globalLeaderBoard);
     return $globalLeaderBoard;
   }
@@ -85,7 +88,8 @@ class EndService
       $actualRoundLeaderBoard[] = [
         'id' => $player->getId(),
         'name' => $player->getName(),
-        'score' => $points[$index] ?? 0
+        'score' => $points[$index] ?? 0,
+        'img' => $player->getImg()
       ];
     }
 

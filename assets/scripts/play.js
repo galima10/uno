@@ -42,14 +42,14 @@ document.addEventListener("turbo:load", () => {
                     const url = enemyBaseUrl.replace("10", cardAngle);
                     playTimeout(() => {
                         window.location.href = url;
-                    }, 700);
+                    }, 650);
                 }, 3000);
             } else if (cardPicked === false) {
                 playTimeout(() => {
                     pickCard();
                     playTimeout(
                         () => (window.location.href = deckBaseUrl),
-                        200,
+                        150,
                     );
                 }, 3000);
             } else {
@@ -75,7 +75,7 @@ document.addEventListener("turbo:load", () => {
                 pickCard();
                 playTimeout(() => {
                     window.location.href = deckBaseUrl;
-                }, 200);
+                }, 150);
             }
         }
     }
@@ -109,7 +109,7 @@ document.addEventListener("turbo:load", () => {
 
                     playTimeout(() => {
                         window.location.href = url;
-                    }, 500);
+                    }, 450);
                 }
             },
             { once: true },

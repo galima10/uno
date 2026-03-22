@@ -170,8 +170,10 @@ class StartService
       $this->mixCurrentPlayers($this->players);
     }
 
+    // Distribuer les cartes
+    $this->distributeCards(1);
+
     // Réinitialiser les données de jeu
-    $this->distributeCards(7);
     $this->session->set('discard', [$this->getFirstCard()]);
     $this->session->set('deck', $this->deck);
     $this->session->set('turn', $this->getFirstTurn());
@@ -180,6 +182,7 @@ class StartService
     $this->session->set('accumulation', 0);
     $this->session->set('sens', 1);
     $this->session->set('winner', null);
+    $this->session->set('endStatus', null);
     $this->session->set('actualCardAngle', null);
     $this->session->set('leaderBoard', []);
   }

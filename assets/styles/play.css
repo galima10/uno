@@ -335,7 +335,7 @@
     img {
         width: 4rem;
         height: 4rem;
-        background-color: blue;
+        background-color: black;
         border: 0.2rem solid white;
         outline: 0.1rem solid rgb(176, 176, 176);
         border-radius: 0.5rem;
@@ -347,7 +347,8 @@
     flex-direction: column;
     gap: 0.5rem;
     width: 5rem;
-    p {
+    position: relative;
+    .name {
         font-weight: bold;
         font-size: 0.9rem;
         background: linear-gradient(
@@ -359,6 +360,14 @@
         padding: 0.25rem 0 0.25rem 0.5rem;
         width: 8rem;
         margin-left: -1rem;
+    }
+    .uno {
+        color: rgb(255, 255, 255);
+        text-shadow: 2px 2px 0px #ff0000;
+        font-weight: bold;
+        position: absolute;
+        font-size: 1.25rem;
+        bottom: calc(100% + .75rem);
     }
 }
 
@@ -405,7 +414,7 @@
     position: absolute;
     width: fit-content;
     height: fit-content;
-    min-height: 5.8rem;
+    min-height: 6.3rem;
     min-width: 4rem;
     &#user-area {
         bottom: 0;
@@ -417,11 +426,11 @@
         }
     }
     &#enemy1-area {
-        left: 0;
+        left: 1rem;
         transform: translateY(2rem);
         .infos {
             left: -4rem;
-            bottom: calc(100% + 3rem);
+            bottom: calc(100% + 2rem);
         }
     }
     &#enemy2-area {
@@ -430,16 +439,15 @@
             margin: 0 -1.2rem;
         }
         .infos {
-            left: calc(100% + 2rem);
-            bottom: 20%;
+            left: calc(100% + 3rem);
         }
     }
     &#enemy3-area {
         right: 0;
         transform: translateY(2rem);
         .infos {
-            right: -3rem;
-            bottom: calc(100% + 4rem);
+            right: -2rem;
+            bottom: calc(100% + 2.5rem);
         }
     }
 }

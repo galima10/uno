@@ -78,8 +78,11 @@
 				<li class="player-area" id="user-area">
 					<div class="infos {% if turn.getId() === players[0].getId() and winner === null %}actual-turn{% endif %}">
 						<div class="player-identity">
-							<p>{{ players[0].getName() }}</p>
+							<p class="name">{{ players[0].getName() }}</p>
 							<img src="{{ asset(players[0].getImg()) }}" alt="">
+							{% if players[0].getCards()|length === 1 %}
+								<p class="uno">UNO !</p>
+							{% endif %}
 						</div>
 						<div class="cards-counter">
 							<p>{{ players[0].getCards()|length }}</p>
@@ -116,8 +119,11 @@
 				<li class="player-area enemy-area" id="enemy1-area">
 					<div class="infos {% if turn.getId() === players[1].getId() and winner === null %}actual-turn{% endif %}">
 						<div class="player-identity">
-							<p>{{ players[1].getName() }}</p>
+							<p class="name">{{ players[1].getName() }}</p>
 							<img src="{{ asset(players[1].getImg()) }}" alt="">
+							{% if players[1].getCards()|length === 1 %}
+								<p class="uno">UNO !</p>
+							{% endif %}
 						</div>
 						<div class="cards-counter">
 							<p>{{ players[1].getCards()|length }}</p>
@@ -141,8 +147,11 @@
 				<li class="player-area enemy-area" id="enemy2-area">
 					<div class="infos {% if turn.getId() === players[2].getId() and winner === null %}actual-turn{% endif %}">
 						<div class="player-identity">
-							<p>{{ players[2].getName() }}</p>
+							<p class="name">{{ players[2].getName() }}</p>
 							<img src="{{ asset(players[2].getImg()) }}" alt="">
+							{% if players[2].getCards()|length === 1 %}
+								<p class="uno">UNO !</p>
+							{% endif %}
 						</div>
 						<div class="cards-counter">
 							<p>{{ players[2].getCards()|length }}</p>
@@ -166,8 +175,11 @@
 				<li class="player-area enemy-area" id="enemy3-area">
 					<div class="infos {% if turn.getId() === players[3].getId() and winner === null %}actual-turn{% endif %}">
 						<div class="player-identity">
-							<p>{{ players[3].getName() }}</p>
+							<p class="name">{{ players[3].getName() }}</p>
 							<img src="{{ asset(players[3].getImg()) }}" alt="">
+							{% if players[3].getCards()|length === 1 %}
+								<p class="uno">UNO !</p>
+							{% endif %}
 						</div>
 						<div class="cards-counter">
 							<p>{{ players[3].getCards()|length }}</p>
@@ -194,7 +206,13 @@
 			<div class="card-container"></div>
 		</div>
 		<div class="game-hud">
-			<p class="info-turn">Tour de <strong>{{ turn.getName() }}</strong></p>
+			<p class="info-turn">
+				{% if turn.getPlayerType() === 'user' %}
+					<strong>C'est à votre tour !</strong>
+				{% else %}
+					Tour de <strong>{{ turn.getName() }}</strong>
+				{% endif %}
+			</p>
 			<div class="buttons">
 				<a href="{{ path('start_index')}}" class="button">
 					<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 414 414"><path fill="#fff" fill-rule="evenodd" d="m43 178-3 29" clip-rule="evenodd"/><path fill="#fff" d="M411 244A207 207 0 0 0 78 45l5-20Q87 9 71 1h-2l-2-1c-9-1-19 4-22 13l-1 2-17 65c-3 11 3 22 14 25l65 18a20 20 0 0 0 11-39l-17-5a167 167 0 0 1 274 128l-3 30a20 20 0 0 0 32 20q6-6 8-13"/><path fill="#fff" fill-rule="evenodd" d="M40 207a167 167 0 0 0 274 128l-17-5a20 20 0 0 1 11-39l65 18q16 6 15 23l-1 2-17 65a20 20 0 0 1-39-10l5-20A207 207 0 0 1 3 170l1-2q1-6 7-11t18-3q16 6 14 23v4c-2 8-3 14-3 26" clip-rule="evenodd"/></svg>

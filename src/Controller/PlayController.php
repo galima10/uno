@@ -14,7 +14,6 @@ final class PlayController extends AbstractController
     public function index(PlayService $playService): Response
     {
         $data = $playService->initData();
-        print_r($data['winner']);
         return $this->render('play/index.html.twig', [
             'deck' => $data['deck'],
             'players' => $data['players'],
