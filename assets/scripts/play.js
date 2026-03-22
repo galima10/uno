@@ -173,7 +173,7 @@ document.addEventListener("turbo:load", () => {
             ".game-animation-container .card-container",
         );
         const enemyElement = document.querySelector(`#enemy-cards${turnId}`);
-        const card = enemyElement.querySelector(`#card-${enemyCardPlayed}`);
+        const card = enemyElement.querySelector(`#card-${parseInt(enemyCardPlayed)}`);
         const cardImgSrc = card.querySelector(".card-front img").src;
         const animationCard = document.createElement("div");
         const gamePlayers = document.querySelector(".game-players");

@@ -8,8 +8,24 @@
 	<div class="home-wrapper">
 		<img class="logo" src="{{ asset('images/uno.webp') }}" alt="">
 		<a href="{{ path('start_index') }}" class="button">Jouer</a>
+        <button class="button" id="allCards">Voir toutes les cartes</button>
+        <div class="all-cards">
+            <img src="{{ asset('images/allcards.webp') }}" alt="">
+            <button class="button" id="close">Fermer</button>
+        </div>
 		<p class="author">
 			<small>par Magali MAI</small>
 		</p>
 	</div>
+    <script>
+        const allCards = document.querySelector(".all-cards");
+        const allCardsButton = document.getElementById("allCards");
+        const closeButton = document.getElementById("close");
+        allCardsButton.addEventListener("click", () => {
+            allCards.classList.toggle("open");
+        })
+        closeButton.addEventListener("click", () => {
+            allCards.classList.remove("open");
+        })
+    </script>
 {% endblock %}

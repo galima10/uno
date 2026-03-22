@@ -72,9 +72,10 @@ class StartService
   // Crée les joueurs s'ils n'existent pas
   private function createPlayers($maxPlayers, $enemies)
   {
+    $userImgPath = 'images/players/user.webp';
     // Ajouter le joueur utilisateur en premier
     $players = [];
-    $user = new PlayerModel(0, 'user', 'Vous', 'urlJoueur');
+    $user = new PlayerModel(0, 'user', 'Vous', $userImgPath);
     $players[] = $user;
 
     // Créer des numéros d'ordinateurs aléatoires (pour créer un semblant de ce n'est pas toujours le "même" ordre)
@@ -100,8 +101,9 @@ class StartService
     $allPlayers = $players;
     $newPlayers = [array_shift($allPlayers)];
     shuffle($allPlayers);
-    foreach ($allPlayers as $enemy) {
-      $newPlayers[] = $enemy;
+    for ($i = 0; $i < count($allPlayers) ; $i++) {
+      $allPlayers[$i]->setId($i + 1);
+      $newPlayers[] = $allPlayers[$i];
     }
     $this->players = $newPlayers;
     $this->session->set('players', $this->players);

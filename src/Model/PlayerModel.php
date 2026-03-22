@@ -17,7 +17,7 @@ class PlayerModel {
     $this->setImg($newImg);
   }
 
-  private function setId($newId) {
+  public function setId($newId) {
     if (is_int($newId) && $newId >= 0 && $newId <= 3) $this->id = $newId;
   }
 

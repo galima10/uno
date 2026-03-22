@@ -13,63 +13,63 @@ class Enemies
     $enemies = [
       [
         'name' => 'Lucas',
-        'img' => 'img1',
+        'img' => 'images/players/lucas.webp',
       ],
       [
         'name' => 'Emma',
-        'img' => 'img2',
+        'img' => 'images/players/emma.webp',
       ],
       [
         'name' => 'Noah',
-        'img' => 'img3',
+        'img' => 'images/players/noah.webp',
       ],
       [
         'name' => 'Léa',
-        'img' => 'img4',
+        'img' => 'images/players/lea.webp',
       ],
       [
         'name' => 'Hugo',
-        'img' => 'img5',
+        'img' => 'images/players/hugo.webp',
       ],
       [
         'name' => 'Jade',
-        'img' => 'img6',
+        'img' => 'images/players/jade.webp',
       ],
       [
         'name' => 'Louis',
-        'img' => 'img7',
+        'img' => 'images/players/louis.webp',
       ],
       [
         'name' => 'Chloé',
-        'img' => 'img8',
+        'img' => 'images/players/chloe.webp',
       ],
       [
         'name' => 'Nathan',
-        'img' => 'img9',
+        'img' => 'images/players/nathan.webp',
       ],
       [
         'name' => 'Manon',
-        'img' => 'img10',
+        'img' => 'images/players/manon.webp',
       ],
       [
         'name' => 'Enzo',
-        'img' => 'img11',
+        'img' => 'images/players/enzo.webp',
       ],
       [
         'name' => 'Camille',
-        'img' => 'img12',
+        'img' => 'images/players/camille.webp',
       ],
       [
         'name' => 'Gabriel',
-        'img' => 'img13',
+        'img' => 'images/players/gabriel.webp',
       ],
       [
         'name' => 'Sarah',
-        'img' => 'img14',
+        'img' => 'images/players/sarah.webp',
       ],
       [
         'name' => 'Mathis',
-        'img' => 'img15',
+        'img' => 'images/players/mathis.webp',
       ],
     ];
     return $enemies;

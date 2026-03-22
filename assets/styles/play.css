@@ -12,9 +12,25 @@
     width: 100vw;
     height: 100vh;
     position: absolute;
-    top: 1rem;
-    left: 1rem;
+    top: 0;
+    left: 0;
+    padding: 1rem;
     pointer-events: none;
+}
+
+.info-turn {
+    position: absolute;
+    right: 1rem;
+    color: white;
+    text-align: end;
+    font-size: 1.25rem;
+    strong {
+        text-decoration: underline;
+    }
+}
+
+.buttons {
+    pointer-events: all;
     display: flex;
     gap: 1rem;
     a {
@@ -201,8 +217,12 @@
             justify-content: center;
         }
         p {
-            opacity: 0;
+            opacity: 1;
             pointer-events: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 0px #a9a9a9;
         }
     }
     .side1 {
@@ -511,8 +531,9 @@
 .user-card {
     width: fit-content;
     height: fit-content;
-
-    filter: brightness(0.65);
+    transition:
+        transform 0.3s ease-in-out;
+    filter: brightness(0.35);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -525,9 +546,9 @@
         filter: brightness(1);
         cursor: pointer;
         .card {
+            box-shadow: 0 0 1rem rgb(199, 255, 240);
             &:hover {
                 transform: translateY(-2rem) translateX(-0.6rem);
-                box-shadow: 0 0 1rem rgb(199, 255, 240);
             }
         }
     }
