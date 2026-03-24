@@ -11,4 +11,6 @@ export APP_DEBUG=1
 PORT=${PORT:-8080}
 
 # Lancer le serveur PHP intégré en pointant vers public/
-php -S 0.0.0.0:$PORT -t public public/index.php
+# php -S 0.0.0.0:$PORT -t public public/index.php
+cd public
+php -S 0.0.0.0:$PORT router.php
