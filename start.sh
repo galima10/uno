@@ -11,4 +11,4 @@ php bin/console importmap:install
 PORT=${PORT:-8080}
 
 # Lance le serveur PHP intégré
-php -S 0.0.0.0:$PORT public/router.php
+php -S 0.0.0.0:$PORT public/index.php
