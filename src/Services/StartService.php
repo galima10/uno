@@ -72,7 +72,7 @@ class StartService
   // Crée les joueurs s'ils n'existent pas
   private function createPlayers($maxPlayers, $enemies)
   {
-    $userImgPath = 'images/players/user.webp';
+    $userImgPath = 'assets/images/players/user.webp';
     // Ajouter le joueur utilisateur en premier
     $players = [];
     $user = new PlayerModel(0, 'user', 'Vous', $userImgPath);

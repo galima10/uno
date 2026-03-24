@@ -7,7 +7,7 @@
 	{# Wrapper de toute l'app pour éviter que l'audio ne se coupe à cause des rechargements et des redirections des pages #}
 	<div>
 		{# Balises pour l'audio en fond #}
-		<audio id="background-music" src="{{ asset('audio/home.mp3') }}" autoplay loop muted></audio>
+		<audio id="background-music" src="{{ asset('assets/audio/home.mp3') }}" autoplay loop muted></audio>
 		<audio id="background-card" src=""></audio>
 
 		<!-- Iframe pour encapsuler le jeu -->
@@ -29,7 +29,7 @@
 	<script>
 		const audioMap = {
 				{% for key, file in audioFiles %}
-						"{{ key }}": "{{ asset('audio/' ~ file) }}",
+						"{{ key }}": "{{ asset('assets/audio/' ~ file) }}",
 				{% endfor %}
 		};
 		const audio = document.getElementById('background-music');

@@ -13,63 +13,63 @@ class Enemies
     $enemies = [
       [
         'name' => 'Lucas',
-        'img' => 'images/players/lucas.webp',
+        'img' => 'assets/images/players/lucas.webp',
       ],
       [
         'name' => 'Emma',
-        'img' => 'images/players/emma.webp',
+        'img' => 'assets/images/players/emma.webp',
       ],
       [
         'name' => 'Noah',
-        'img' => 'images/players/noah.webp',
+        'img' => 'assets/images/players/noah.webp',
       ],
       [
         'name' => 'Léa',
-        'img' => 'images/players/lea.webp',
+        'img' => 'assets/images/players/lea.webp',
       ],
       [
         'name' => 'Hugo',
-        'img' => 'images/players/hugo.webp',
+        'img' => 'assets/images/players/hugo.webp',
       ],
       [
         'name' => 'Jade',
-        'img' => 'images/players/jade.webp',
+        'img' => 'assets/images/players/jade.webp',
       ],
       [
         'name' => 'Louis',
-        'img' => 'images/players/louis.webp',
+        'img' => 'assets/images/players/louis.webp',
       ],
       [
         'name' => 'Chloé',
-        'img' => 'images/players/chloe.webp',
+        'img' => 'assets/images/players/chloe.webp',
       ],
       [
         'name' => 'Nathan',
-        'img' => 'images/players/nathan.webp',
+        'img' => 'assets/images/players/nathan.webp',
       ],
       [
         'name' => 'Manon',
-        'img' => 'images/players/manon.webp',
+        'img' => 'assets/images/players/manon.webp',
       ],
       [
         'name' => 'Enzo',
-        'img' => 'images/players/enzo.webp',
+        'img' => 'assets/images/players/enzo.webp',
       ],
       [
         'name' => 'Camille',
-        'img' => 'images/players/camille.webp',
+        'img' => 'assets/images/players/camille.webp',
       ],
       [
         'name' => 'Gabriel',
-        'img' => 'images/players/gabriel.webp',
+        'img' => 'assets/images/players/gabriel.webp',
       ],
       [
         'name' => 'Sarah',
-        'img' => 'images/players/sarah.webp',
+        'img' => 'assets/images/players/sarah.webp',
       ],
       [
         'name' => 'Mathis',
-        'img' => 'images/players/mathis.webp',
+        'img' => 'assets/images/players/mathis.webp',
       ],
     ];
     return $enemies;

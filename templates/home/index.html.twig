@@ -4,13 +4,13 @@
 {% endblock %}
 
 {% block body %}
-	<link rel="stylesheet" href="{{ asset('styles/home.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/styles/home.css') }}">
 	<div class="home-wrapper">
-		<img class="logo" src="{{ asset('images/uno.webp') }}" alt="">
+		<img class="logo" src="{{ asset('assets/images/uno.webp') }}" alt="">
 		<a href="{{ path('start_index') }}" class="button">Jouer</a>
         <button class="button" id="allCards">Voir toutes les cartes</button>
         <div class="all-cards">
-            <img src="{{ asset('images/allcards.webp') }}" alt="">
+            <img src="{{ asset('assets/images/allcards.webp') }}" alt="">
             <button class="button" id="close">Fermer</button>
         </div>
 		<p class="author">
