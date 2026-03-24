@@ -1,14 +1,15 @@
 <?php
+
 use App\Kernel;
 
-require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+require_once dirname(__DIR__) . '/vendor/autoload_runtime.php';
 
 // Ne pas toucher aux fichiers statiques
 if (php_sapi_name() === 'cli-server') {
-    $url  = parse_url($_SERVER['REQUEST_URI']);
-    $file = __DIR__ . $url['path'];
+    $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); // attention au 2e param
+    $file = __DIR__ . $url;
     if (is_file($file)) {
-        return false; // sert le fichier directement
+        return false;
     }
 }
 
