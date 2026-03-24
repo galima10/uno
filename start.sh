@@ -1,11 +1,17 @@
 #!/bin/sh
 
-php bin/console cache:clear --env=prod
-# Installe les dépendances PHP
+#!/bin/sh
+
+# Forcer l'environnement prod
+export APP_ENV=prod
+export APP_DEBUG=0
+
+# Installer les dépendances prod
 composer install --no-dev --optimize-autoloader
 
-# Installe les assets importmap
-php bin/console importmap:install
+# Clear le cache prod
+php bin/console cache:clear --env=prod
+php bin/console cache:warmup --env=prod
 
 # Utilise le port fourni par Railway
 PORT=${PORT:-8080}
