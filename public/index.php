@@ -17,8 +17,9 @@ if (php_sapi_name() === 'cli-server') {
     $url  = parse_url($_SERVER['REQUEST_URI']);
     $file = __DIR__ . $url['path'];
 
-    if (is_file($file)) {
-        return false; // sert le fichier statique
+    // NE TRAITE QUE LES FICHIERS PHP STATIQUES
+    if (is_file($file) && preg_match('/\.php$/', $file)) {
+        return false;
     }
 }
 
