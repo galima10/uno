@@ -1,12 +1,14 @@
 #!/bin/sh
 
-#!/bin/sh
+# Installer les dépendances PHP
+composer install --no-interaction
 
-# Installer les dépendances prod
-composer install
+# Forcer l'environnement (dev pour l'instant)
+export APP_ENV=dev
+export APP_DEBUG=1
 
-# Utilise le port fourni par Railway
+# Utiliser le port fourni par Railway
 PORT=${PORT:-8080}
 
-# Lance le serveur PHP intégré
-php -S 0.0.0.0:$PORT 
+# Lancer le serveur PHP intégré en pointant vers public/
+php -S 0.0.0.0:$PORT -t public public/index.php
