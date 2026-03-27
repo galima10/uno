@@ -5,9 +5,6 @@ framework:
     # Note that the session will be started ONLY if you read or write from it.
     session: true
 
-    assets:
-        base_urls: ["https://uno-production-af5a.up.railway.app"]
-
     #esi: true
     #fragments: true
 

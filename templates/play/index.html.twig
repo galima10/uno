@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<link rel="stylesheet" href="{{ asset('assets/styles/play.css') }}">
+	<link rel="stylesheet" href="{{ asset('styles/play.css') }}">
 	<div class="game-wrapper {% if winner %}finish{% endif %}">
 		<div class="game-board">
 			<div class="discard">
@@ -237,5 +237,5 @@
 	data-end-base-url="{{ path('end_index') }}" 
 	data-deck-base-url="{{ path('deck_index', {'playerId': turn.getId(), 'cardAngle': cardAngle}) }}">
 </div>
-<script src="{{ asset('assets/scripts/play.js') }}"></script>
+<script src="{{ asset('scripts/play.js') }}"></script>
 {% endblock %}

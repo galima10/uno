@@ -158,7 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function pickCard() {
-        console.log("pioche");
         const animationCardContainer = document.querySelector(
             ".game-animation-container .card-container",
         );
@@ -256,8 +255,6 @@ document.addEventListener("DOMContentLoaded", () => {
             transform = transform + " rotate(270deg)";
             finalTransform = `rotate(270deg)`;
         }
-
-        console.log(finalTransform);
 
         animationCard.style.transform = transform;
         cardInner.style.transform = finalRotate;
